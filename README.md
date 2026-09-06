@@ -4,8 +4,9 @@ Personal site — **Julius Gunawan, AI Automation Engineer**. Static, no build s
 
 ```
 index.html                  # everything: markup, CSS, JS (ES module)
-assets/hero-base.jpg        # hero base layer (dark suit, no glasses)
-assets/hero-reveal.jpg      # painted under the cursor (warm orange, glasses)
+assets/hero-base.jpg        # hero wallpaper - DARK theme
+assets/hero-light.jpg       # hero wallpaper - LIGHT theme
+assets/hero-reveal.jpg      # painted under the cursor (dark theme only)
 work/gbk-3d/index.html      # live demo — copy of ../../gbk-3d/index.html + a back link
 ```
 
@@ -37,6 +38,14 @@ output directory empty.
   canvas layered over `hero-base.jpg`. Brush radius 143px, trail decay 0.010/frame, and
   a hard clear after 120 idle frames so the trail never obscures the headline. Skipped
   entirely under `prefers-reduced-motion`.
+- **Theming** - one set of components, two token sets. Dark is the default; light is
+  opt-in via the header toggle and remembered in `localStorage`. An inline script in
+  `<head>` applies the stored theme before first paint, so there is no flash. Colours
+  live in CSS custom properties on `:root` (dark) and `[data-theme="light"]`; nothing
+  is duplicated per theme. The orange accent is a brand constant and never changes.
+  Note: `.eyebrow.light` and `.pill.light` are shared with the always-dark Stats panel
+  and Footer, so their light-theme overrides are scoped to `#home` - do not lift them
+  to the global rule or the footer button turns dark-on-dark.
 - **Motion** — entrance reveals are CSS transitions gated by an IntersectionObserver
   (hero reveals additionally wait for the intro loader to finish); hovers run on a small
   rAF spring integrator and are disabled on touch.
