@@ -42,8 +42,10 @@ output directory empty.
 
 ## How it works
 
-- **Smooth scroll** — Lenis, loaded as an ES module from unpkg via an importmap.
-  It is the only external dependency besides the Onest webfont.
+- **Smooth scroll** — Lenis 1.3.23, vendored at `assets/vendor/lenis.mjs` and loaded as
+  an ES module via an importmap. Previously loaded from unpkg at runtime; vendored
+  23 Sep 2026 so a compromised or renamed CDN package can't swap the script the site
+  runs. Only external dependency left is the Onest webfont from Google Fonts.
 - **Adaptive grid** — every size is in `rem`; the root font-size tracks the viewport
   (`vw`-based media queries below 1920px, a damped JS formula above it), so the layout
   scales proportionally instead of reflowing.
