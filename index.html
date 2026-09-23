@@ -352,6 +352,27 @@ body.ready #header{opacity:1;transform:none}
 .card .live{display:flex;align-items:center;gap:.75rem;color:#fff}
 .card .priv{color:rgba(255,255,255,.3)}
 .card .cmark{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+/* Demo screenshot in a tilted browser frame. Left-column cards lean right and
+   right-column cards lean left, so the 2x2 grid reads as one composition.
+   On hover the frame turns toward the viewer. */
+.card{min-height:35rem}
+.card .shotwrap{position:absolute;z-index:1;top:4.5rem;left:18%;right:-8%;perspective:1600px;pointer-events:none}
+.card .shot{margin:0;border-radius:.75rem;overflow:hidden;background:#161616;
+  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 30px 60px -20px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.08);
+  transform:rotateX(9deg) rotateY(-17deg) rotateZ(3deg);transform-origin:0 50%;
+  transition:transform .8s var(--e-soft)}
+.card .shotbar{display:flex;gap:.3rem;padding:.45rem .6rem;background:#1c1c1c;border-bottom:1px solid rgba(255,255,255,.06)}
+.card .shotbar i{width:.4rem;height:.4rem;border-radius:9999px;background:rgba(255,255,255,.18)}
+.card .shot img{display:block;width:100%;height:auto}
+.cards li:nth-child(even) .shotwrap{left:-8%;right:18%}
+.cards li:nth-child(even) .shot{transform:rotateX(9deg) rotateY(17deg) rotateZ(-3deg);transform-origin:100% 50%}
+.card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(10,10,10,0) 52%,rgba(10,10,10,.78) 68%,#0a0a0a 82%)}
+.card .body{z-index:3}
+@media (hover:hover){
+  .card:hover .shot{transform:rotateX(4deg) rotateY(-8deg) rotateZ(1deg)}
+  .cards li:nth-child(even) .card:hover .shot{transform:rotateX(4deg) rotateY(8deg) rotateZ(-1deg)}
+}
 .card .cmark .ic{font-size:4.5rem;color:rgba(255,255,255,.09)}
 .card .cmark sup{font-size:.75rem;color:rgba(255,255,255,.6)}
 .card .body{position:absolute;inset-inline:1.5rem;bottom:1.5rem}
@@ -473,7 +494,8 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   .band .t-dark .ic{font-size:3rem}
   #works .in{padding-left:2rem;padding-right:2rem}
   .works-head h2{font-size:3rem}
-  .card{min-height:26rem;padding:2rem}
+  .card{min-height:36rem;padding:2rem}
+  .card .shotwrap{top:5.25rem}
   .card .body{inset-inline:2rem;bottom:2rem}
   .card h3{font-size:1.875rem}
   #services .in{padding-left:2rem;padding-right:2rem}
@@ -689,7 +711,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
           <div class="socials">
             <a href="mailto:juliusgunawan1307@gmail.com" class="accent" aria-label="Email"><svg class="ic"><use href="#i-arrow-ur"/></svg></a>
             <a href="https://github.com/juliusgunawan0707" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic"><use href="#i-github"/></svg></a>
-            <a href="https://www.linkedin.com/in/juliusgunawan/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-linkedin"/></svg></a>
+            <a href="https://www.linkedin.com/in/julius-gunawan/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-linkedin"/></svg></a>
           </div>
         </div>
         <span class="pill outline arw" data-scroll="works" role="button" tabindex="0">
@@ -722,7 +744,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>Automation &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="cmark"><svg class="ic"><use href="#i-logo"/></svg></div>
+          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/workline.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Workline dashboard with the day’s checklist and SKP progress"></figure></div>
           <div class="body">
             <h3>Workline</h3>
             <p>A work manager for public-sector staff: log a task once and the attendance recap, quarterly performance report and meeting minutes generate themselves — every figure computed, never invented.</p>
@@ -733,7 +755,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>WebGL &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="cmark"><svg class="ic"><use href="#i-logo"/></svg></div>
+          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/nusantara.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Nusantara opening scene with the NUSA letterforms in the rainforest"></figure></div>
           <div class="body">
             <h3>Nusantara</h3>
             <p>Four acts along the nationhood axis of Indonesia's new capital, rendered live in the browser — architecture, terrain and light, sourced from official figures.</p>
@@ -744,7 +766,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>3D Product &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="cmark"><svg class="ic"><use href="#i-logo"/></svg></div>
+          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/colawars.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Cola Wars landing page with the Coca-Cola and Pepsi cans"></figure></div>
           <div class="body">
             <h3>Cola Wars</h3>
             <p>One soda can, two brand worlds. The model tracks your cursor, and a single click swaps the label, the palette and the entire design language around it.</p>
@@ -755,10 +777,10 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>Realtime &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="cmark"><svg class="ic"><use href="#i-logo"/></svg></div>
+          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/gbk.webp" width="1200" height="750" loading="lazy" decoding="async" alt="GBK 3D stadium bowl with the match in progress"></figure></div>
           <div class="body">
             <h3>GBK 3D</h3>
-            <p>A browser replica of Gelora Bung Karno — 36,150 instanced spectators, a real match simulated end to end, held at 138 draw calls.</p>
+            <p>A browser replica of Gelora Bung Karno — 33,794 instanced spectators and a real match simulated end to end, in 80 draw calls a frame.</p>
             <div class="tags"><span class="tag">three.js</span><span class="tag">WebGL</span><span class="tag">Simulation</span></div>
           </div>
         </article></a></li>
@@ -799,8 +821,8 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
       <p class="eyebrow light">By the numbers</p>
       <h2><span class="ln"><i style="--d:120ms">Proof in the work, not the words.</i></span></h2>
       <ul class="statgrid">
-        <li class="rv" style="--d:0ms;--ty:20px"><div class="n"><span data-count="36150">0</span></div><div class="l">Spectators rendered in realtime</div></li>
-        <li class="rv" style="--d:90ms;--ty:20px"><div class="n"><span data-count="138">0</span></div><div class="l">Draw calls, down from 245</div></li>
+        <li class="rv" style="--d:0ms;--ty:20px"><div class="n"><span data-count="33794">0</span></div><div class="l">Spectators rendered in realtime</div></li>
+        <li class="rv" style="--d:90ms;--ty:20px"><div class="n"><span data-count="80">0</span></div><div class="l">Draw calls per frame, down from 245</div></li>
         <li class="rv" style="--d:180ms;--ty:20px"><div class="n"><span data-count="4">0</span></div><div class="l">Live demos you can open now</div></li>
         <li class="rv" style="--d:270ms;--ty:20px"><div class="n"><span data-count="0">0</span></div><div class="l">Backends — everything runs client-side</div></li>
       </ul>
@@ -849,7 +871,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <h3>Elsewhere</h3>
         <ul>
           <li><a class="alink" href="https://github.com/juliusgunawan0707" target="_blank" rel="noopener"><span>GitHub</span></a></li>
-          <li><a class="alink" href="https://www.linkedin.com/in/juliusgunawan/" target="_blank" rel="noopener"><span>LinkedIn</span></a></li>
+          <li><a class="alink" href="https://www.linkedin.com/in/julius-gunawan/" target="_blank" rel="noopener"><span>LinkedIn</span></a></li>
           <li><a class="alink" href="mailto:juliusgunawan1307@gmail.com"><span>Email</span></a></li>
         </ul>
       </div>
@@ -897,6 +919,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <h2 id="modal-title">Tell me what you're building.</h2>
       </div>
       <form novalidate>
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div><label for="f-name">Name</label><input id="f-name" name="name" type="text" required placeholder="Your name"></div>
         <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" required placeholder="you@company.com"></div>
         <div><label for="f-msg">Project</label><textarea id="f-msg" name="project" rows="4" required placeholder="A few words about your project, timeline, and budget."></textarea></div>
@@ -1331,7 +1354,7 @@ document.querySelectorAll('[data-modal-close]').forEach(b=> b.addEventListener('
    juliusgunawan1307@gmail.com. While the key is empty — or if the request
    fails for any reason — it falls back to opening the visitor's mail client
    with the message already written, so a submission is never silently lost. */
-const WEB3FORMS_KEY = '';
+const WEB3FORMS_KEY = 'c83bfed7-c008-472a-bca2-896641e28a74';
 const CONTACT_EMAIL = 'juliusgunawan1307@gmail.com';
 
 function mailtoFallback(d){
@@ -1352,6 +1375,10 @@ modal.querySelector('form').addEventListener('submit', async e=>{
     email: form.elements['email'].value.trim(),
     project: form.elements['project'].value.trim()
   };
+  // bots that tick every box land here: pretend success, send nothing
+  if (form.elements['botcheck'] && form.elements['botcheck'].checked){
+    formState.hidden = true; okState.hidden = false; return;
+  }
   if (!d.name || !d.email || !d.project){
     lbl.textContent = 'Fill every field';
     setTimeout(()=> lbl.textContent = 'Send request', 1600);
