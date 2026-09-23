@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "ORACLE — multi-agent investment desk",
+    "subtitle": "Seven agents debate a position over Telegram until they agree. Every number comes from a deterministic script; the language model only writes the argument.",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "gateway",
+      "type": "security",
+      "label": "Telegram gateway",
+      "sublabel": "long polling · chat whitelist",
+      "pos": [
+        40,
+        260
+      ],
+      "size": [
+        170,
+        70
+      ]
+    },
+    {
+      "id": "timo",
+      "type": "backend",
+      "label": "Timo",
+      "sublabel": "crypto technicals",
+      "pos": [
+        110,
+        70
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "warren",
+      "type": "backend",
+      "label": "Warren",
+      "sublabel": "value + crisis alert",
+      "pos": [
+        280,
+        70
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "ray",
+      "type": "backend",
+      "label": "Ray",
+      "sublabel": "macro regime",
+      "pos": [
+        450,
+        70
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "bus",
+      "type": "messagebus",
+      "label": "Debate bus",
+      "sublabel": "round-robin · max 4 rounds",
+      "pos": [
+        300,
+        250
+      ],
+      "size": [
+        200,
+        90
+      ],
+      "tag": "ends on [AGREED]"
+    },
+    {
+      "id": "charlie",
+      "type": "security",
+      "label": "Charlie",
+      "sublabel": "bias auditor, every round",
+      "pos": [
+        300,
+        450
+      ],
+      "size": [
+        200,
+        70
+      ]
+    },
+    {
+      "id": "data",
+      "type": "external",
+      "label": "Market data",
+      "sublabel": "Coin Metrics · FRED · Yahoo",
+      "pos": [
+        40,
+        450
+      ],
+      "size": [
+        170,
+        70
+      ],
+      "tag": "one cached snapshot"
+    },
+    {
+      "id": "llm",
+      "type": "cloud",
+      "label": "Model routing",
+      "sublabel": "fast tier / reasoning tier",
+      "pos": [
+        640,
+        450
+      ],
+      "size": [
+        170,
+        70
+      ]
+    },
+    {
+      "id": "ben",
+      "type": "backend",
+      "label": "Ben",
+      "sublabel": "position sizing",
+      "pos": [
+        640,
+        70
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "quinn",
+      "type": "backend",
+      "label": "Quinn",
+      "sublabel": "conviction 0–100, deterministic",
+      "pos": [
+        640,
+        260
+      ],
+      "size": [
+        170,
+        70
+      ]
+    },
+    {
+      "id": "journal",
+      "type": "database",
+      "label": "Decision journal",
+      "sublabel": "verdict + dissent",
+      "pos": [
+        900,
+        260
+      ],
+      "size": [
+        170,
+        70
+      ]
+    },
+    {
+      "id": "retro",
+      "type": "backend",
+      "label": "Track record + retro",
+      "sublabel": "proposals only, human approves",
+      "pos": [
+        900,
+        450
+      ],
+      "size": [
+        170,
+        70
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "ask",
+      "from": "gateway",
+      "to": "bus",
+      "label": "question",
+      "variant": "emphasis"
+    },
+    {
+      "id": "timo-stance",
+      "from": "timo",
+      "to": "bus",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "warren-stance",
+      "from": "warren",
+      "to": "bus",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "ray-stance",
+      "from": "ray",
+      "to": "bus",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "audit",
+      "from": "charlie",
+      "to": "bus",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "snapshot",
+      "from": "data",
+      "to": "bus",
+      "variant": "dashed",
+      "fromSide": "right",
+      "toSide": "bottom"
+    },
+    {
+      "id": "models",
+      "from": "llm",
+      "to": "bus",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "converge",
+      "from": "bus",
+      "to": "quinn",
+      "label": "consensus",
+      "variant": "emphasis",
+      "labelAt": [
+        570,
+        282
+      ]
+    },
+    {
+      "id": "sizing",
+      "from": "ben",
+      "to": "quinn",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "record",
+      "from": "quinn",
+      "to": "journal",
+      "label": "verdict",
+      "variant": "emphasis"
+    },
+    {
+      "id": "score",
+      "from": "journal",
+      "to": "retro",
+      "label": "7/30/90 d",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        1030,
+        390
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Debate",
+      "items": [
+        "Timo, Warren and Ray argue in turn and rebut each other",
+        "Charlie audits every round for bias",
+        "Stops on consensus or after four rounds"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Numbers, not prose",
+      "items": [
+        "Quinn's conviction score is a Python function",
+        "One cached data snapshot per discussion, so every agent sees identical figures",
+        "Missing fair value falls back to on-chain MVRV"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Learning loop",
+      "items": [
+        "Every verdict is journalled with its dissent",
+        "Hit-rate scored against real prices at 7, 30 and 90 days",
+        "Weak segments become proposals — a human approves each change"
+      ]
+    }
+  ]
+}

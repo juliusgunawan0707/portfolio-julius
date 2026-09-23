@@ -345,34 +345,31 @@ body.ready #header{opacity:1;transform:none}
 .cards{display:grid;grid-template-columns:1fr;gap:1.5rem}
 .card{position:relative;min-height:22rem;overflow:hidden;border-radius:var(--radius-card);background:var(--ink);padding:1.5rem;color:#fff;
   box-shadow:0 0 0 1px rgba(255,255,255,.05);will-change:transform}
-.card .meta{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+.card .meta{position:relative;z-index:3;text-shadow:0 1px 8px rgba(0,0,0,.6);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
   font-size:.75rem;text-transform:uppercase;letter-spacing:.025em;color:rgba(255,255,255,.45)}
 .card .cbadge{width:2.75rem;height:2.75rem;display:grid;place-items:center;border-radius:9999px;background:rgba(255,255,255,.1);
   color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.15);font-size:1rem;will-change:transform;flex:none}
 .card .live{display:flex;align-items:center;gap:.75rem;color:#fff}
 .card .priv{color:rgba(255,255,255,.3)}
 .card .cmark{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
-/* Demo screenshot in a tilted browser frame. Left-column cards lean right and
-   right-column cards lean left, so the 2x2 grid reads as one composition.
-   On hover the frame turns toward the viewer. */
+/* Demo screenshot fills the whole card. --pos keeps each demo's subject in
+   frame (the can, the NUSA letters, the stadium) once object-fit crops it to
+   the card's near-square shape. Scrims top and bottom keep meta and title
+   legible over bright shots. */
 .card{min-height:35rem}
-.card .shotwrap{position:absolute;z-index:1;top:4.5rem;left:18%;right:-8%;perspective:1600px;pointer-events:none}
-.card .shot{margin:0;border-radius:.75rem;overflow:hidden;background:#161616;
-  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 30px 60px -20px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.08);
-  transform:rotateX(9deg) rotateY(-17deg) rotateZ(3deg);transform-origin:0 50%;
-  transition:transform .8s var(--e-soft)}
-.card .shotbar{display:flex;gap:.3rem;padding:.45rem .6rem;background:#1c1c1c;border-bottom:1px solid rgba(255,255,255,.06)}
-.card .shotbar i{width:.4rem;height:.4rem;border-radius:9999px;background:rgba(255,255,255,.18)}
-.card .shot img{display:block;width:100%;height:auto}
-.cards li:nth-child(even) .shotwrap{left:-8%;right:18%}
-.cards li:nth-child(even) .shot{transform:rotateX(9deg) rotateY(17deg) rotateZ(-3deg);transform-origin:100% 50%}
+.card .bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);
+  transition:transform .9s var(--e-soft)}
 .card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(10,10,10,0) 52%,rgba(10,10,10,.78) 68%,#0a0a0a 82%)}
+  background:linear-gradient(to bottom,rgba(10,10,10,.9) 0,rgba(10,10,10,.6) 11%,rgba(10,10,10,0) 26%,rgba(10,10,10,0) 44%,rgba(10,10,10,.8) 64%,#0a0a0a 84%)}
 .card .body{z-index:3}
-@media (hover:hover){
-  .card:hover .shot{transform:rotateX(4deg) rotateY(-8deg) rotateZ(1deg)}
-  .cards li:nth-child(even) .card:hover .shot{transform:rotateX(4deg) rotateY(8deg) rotateZ(-1deg)}
-}
+/* the demo's own header sits under the meta row; a frosted pill keeps it readable */
+.card .meta>span:first-child,.card .live{padding:.45rem .8rem;border-radius:9999px;background:rgba(10,10,10,.55);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 0 0 1px rgba(255,255,255,.08);white-space:nowrap}
+.card .live{padding:.3rem .3rem .3rem .9rem}
+/* phones: the arrow badge alone says "open it"; the words would push the row past the card */
+@media (max-width:479px){.card .live{font-size:0;gap:0;padding:.3rem}}
+@media (hover:hover){.card:hover .bg{transform:scale(1.04)}}
+@media (prefers-reduced-motion:reduce){.card .bg{transition:none}.card:hover .bg{transform:none}}
 .card .cmark .ic{font-size:4.5rem;color:rgba(255,255,255,.09)}
 .card .cmark sup{font-size:.75rem;color:rgba(255,255,255,.6)}
 .card .body{position:absolute;inset-inline:1.5rem;bottom:1.5rem}
@@ -390,7 +387,6 @@ body.ready #header{opacity:1;transform:none}
 .srow .idx{width:1.75rem;font-size:.875rem;font-weight:500;color:rgba(17,17,17,.4);flex:none}
 .srow h3{flex:1;font-size:1.5rem;font-weight:500;letter-spacing:-.01em}
 .srow p{display:none;max-width:20rem;font-size:.875rem;color:rgba(17,17,17,.55)}
-.srow .spriv{font-size:.75rem;text-transform:uppercase;letter-spacing:.025em;color:rgba(17,17,17,.32);flex:none;white-space:nowrap}
 .srow .sbadge{width:2.5rem;height:2.5rem;display:grid;place-items:center;border-radius:9999px;background:var(--ink);color:#fff;flex:none;will-change:transform}
 
 /* ---------- stats ---------- */
@@ -495,7 +491,6 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   #works .in{padding-left:2rem;padding-right:2rem}
   .works-head h2{font-size:3rem}
   .card{min-height:36rem;padding:2rem}
-  .card .shotwrap{top:5.25rem}
   .card .body{inset-inline:2rem;bottom:2rem}
   .card h3{font-size:1.875rem}
   #services .in{padding-left:2rem;padding-right:2rem}
@@ -744,7 +739,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>Automation &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/workline.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Workline dashboard with the day’s checklist and SKP progress"></figure></div>
+          <img class="bg" style="--pos:0% 0%" src="assets/work/workline.webp" width="960" height="900" loading="lazy" decoding="async" alt="Workline dashboard with the day’s checklist and SKP progress">
           <div class="body">
             <h3>Workline</h3>
             <p>A work manager for public-sector staff: log a task once and the attendance recap, quarterly performance report and meeting minutes generate themselves — every figure computed, never invented.</p>
@@ -755,7 +750,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>WebGL &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/nusantara.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Nusantara opening scene with the NUSA letterforms in the rainforest"></figure></div>
+          <img class="bg" style="--pos:0% 50%" src="assets/work/nusantara.webp" width="960" height="900" loading="lazy" decoding="async" alt="Nusantara opening scene with the NUSA letterforms in the rainforest">
           <div class="body">
             <h3>Nusantara</h3>
             <p>Four acts along the nationhood axis of Indonesia's new capital, rendered live in the browser — architecture, terrain and light, sourced from official figures.</p>
@@ -766,7 +761,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>3D Product &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/colawars.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Cola Wars landing page with the Coca-Cola and Pepsi cans"></figure></div>
+          <img class="bg" style="--pos:50% 50%" src="assets/work/colawars.webp" width="960" height="900" loading="lazy" decoding="async" alt="Cola Wars landing page with the Coca-Cola and Pepsi cans">
           <div class="body">
             <h3>Cola Wars</h3>
             <p>One soda can, two brand worlds. The model tracks your cursor, and a single click swaps the label, the palette and the entire design language around it.</p>
@@ -777,7 +772,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <article class="card">
           <div class="meta"><span>Realtime &mdash; 2026</span>
             <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <div class="shotwrap"><figure class="shot"><span class="shotbar"><i></i><i></i><i></i></span><img src="assets/work/gbk.webp" width="1200" height="750" loading="lazy" decoding="async" alt="GBK 3D stadium bowl with the match in progress"></figure></div>
+          <img class="bg" style="--pos:55% 50%" src="assets/work/gbk.webp" width="960" height="900" loading="lazy" decoding="async" alt="GBK 3D stadium bowl with the match in progress">
           <div class="body">
             <h3>GBK 3D</h3>
             <p>A browser replica of Gelora Bung Karno — 33,794 instanced spectators and a real match simulated end to end, in 80 draw calls a frame.</p>
@@ -794,10 +789,10 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
     <p class="eyebrow rv">Services</p>
     <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms">What I do best</i></span></h2>
     <ul>
-      <li class="srow rv" style="--d:0ms;--ty:24px">
+      <li class="srow rv" style="--d:0ms;--ty:24px"><a href="work/oracle/" target="_blank" rel="noopener">
         <div class="r"><span class="idx">01</span><h3>Multi-Agent Systems</h3>
         <p>Agents that argue, audit each other, and reach a verdict you can trace.</p>
-        <span class="spriv">Private work</span></div></li>
+        <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
       <li class="srow rv" style="--d:80ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/workline/" target="_blank" rel="noopener">
         <div class="r"><span class="idx">02</span><h3>Workflow Automation</h3>
         <p>Document work that used to take a week, done in one command.</p>

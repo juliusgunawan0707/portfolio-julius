@@ -7,13 +7,26 @@ index.html                  # everything: markup, CSS, JS (ES module)
 assets/hero-base.jpg        # hero wallpaper - DARK theme
 assets/hero-light.jpg       # hero wallpaper - LIGHT theme
 assets/hero-reveal.jpg      # painted under the cursor (dark theme only)
-work/gbk-3d/index.html      # live demo — copy of ../../gbk-3d/index.html + a back link
+assets/work/*.webp          # Selected Work card images, captured from the live demos
+work/gbk-3d/index.html      # live demo - copy of ../../gbk-3d/index.html + a back link
+work/oracle/                # ORACLE architecture diagram (proof for Services 01)
+tools/capture.mjs           # re-capture the card images
+tools/sync_gbk.py           # re-copy the GBK build
+tools/build_oracle.py       # re-render the ORACLE diagram
 ```
 
-`work/gbk-3d/index.html` is a **copy**, not a symlink. Rebuild the source with
-`python build.py` in `gbk-3d/`, then re-copy it here and re-inject the `#back-to-porto`
-anchor before `</body>`. The GBK 3D portfolio card is the only clickable card; the other
-three are marked "Private project" because they cannot be demoed publicly.
+**Card images.** `node tools/capture.mjs [workline|nusantara|colawars|gbk]` drives headless
+Chrome over the DevTools protocol (Node 24, no dependencies) and waits until each demo is
+really drawn - a readiness check in the page (e.g. model-viewer `.loaded` for Cola Wars)
+plus a lit, settled screen - before shooting a 1280x1200 viewport, the card's own shape,
+to `assets/work/<name>.webp` at 960x900. Re-run it whenever a demo changes.
+
+**GBK 3D** is a **copy**, not a link: rebuild `gbk-3d/`, then `python tools/sync_gbk.py`.
+
+**ORACLE** is private, so the site shows its wiring only - no bot name, token, chat ID or
+portfolio figures. Edit `work/oracle/oracle.architecture.json`, then
+`python tools/build_oracle.py` (renders it with the archify skill under the showcase
+quality gate and re-injects the back link).
 
 ## Deploy to Vercel
 
