@@ -6,11 +6,11 @@
 <script>/* set theme before first paint so there is no flash of the wrong theme */
 try{var t=localStorage.getItem('theme');document.documentElement.dataset.theme=(t==='light')?'light':'dark';}
 catch(e){document.documentElement.dataset.theme='dark';}</script>
-<title>Julius Gunawan — AI Automation Engineer</title>
-<meta name="description" content="I build automation and realtime interfaces — a work manager that writes its own paperwork, and 3D that runs in a browser tab. Four live demos, no slide decks." />
+<title>Julius Gunawan — AI Automation Builder</title>
+<meta name="description" content="I build automation and realtime interfaces — a work manager that writes its own paperwork, and 3D that runs in a browser tab. Seven live demos, no slide decks." />
 <meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23b15f2c' d='M24 2c2.2 13.8 7.9 19.6 22 22-14.1 2.4-19.8 8.2-22 22-2.2-13.8-7.9-19.6-22-22 14.1-2.4 19.8-8.2 22-22Z'/%3E%3C/svg%3E" />
-<meta property="og:title" content="Julius Gunawan — AI Automation Engineer" />
+<meta property="og:title" content="Julius Gunawan — AI Automation Builder" />
 <meta property="og:description" content="Systems that decide, not dashboards that report." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://juliusgunawan0707.github.io/portfolio-julius/assets/hero-base.jpg" />
@@ -167,7 +167,8 @@ body,#home,.vignette,.brand,#header nav button,.clock,.clock .lbl,.clock .t,.clo
   transition:background-color .32s ease,color .32s ease,border-color .32s ease,
              box-shadow .32s ease,opacity .32s ease,background-image .32s ease}
 .rv.shown{opacity:var(--op,1);transform:none}
-.ln{display:block;overflow:hidden}
+/* padding-bottom keeps descenders (y, g, p, commas) inside the clip box; the negative margin cancels it so layout is unchanged */
+.ln{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
 .ln>i{display:block;font-style:normal;transform:translateY(105%);opacity:0;
       transition:transform .9s var(--e-line) var(--d,0ms),opacity .9s var(--e-line) var(--d,0ms)}
 .rv.shown .ln>i{transform:none;opacity:1}
@@ -224,7 +225,7 @@ body.ready #header{opacity:1;transform:none}
 #header nav button{display:inline-flex;align-items:center;gap:.25rem;color:var(--nav-text)}
 #header nav button>span{display:inline-block;will-change:transform;opacity:.8}
 #header nav .caret{font-size:.75rem;opacity:.6}
-.hright{display:flex;align-items:center;gap:.75rem}
+.hright{display:flex;align-items:center;gap:.625rem}
 .clock{display:none;align-items:center;gap:.75rem;border:1px solid var(--nav-chip-border);background:var(--nav-chip-bg);
        backdrop-filter:blur(4px);border-radius:.875rem;padding:.5rem .75rem;font-size:.75rem;color:var(--nav-text-dim)}
 .clock .lbl{color:var(--nav-text-mute)}
@@ -246,7 +247,6 @@ body.ready #header{opacity:1;transform:none}
 #liquid .img-light{opacity:0}
 [data-theme="light"] #liquid .img-dark{opacity:0}
 [data-theme="light"] #liquid .img-light{opacity:1}
-[data-theme="light"] #liquid canvas{opacity:0}
 #liquid canvas{pointer-events:none}
 .vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--hero-vignette)}
 .watermark{pointer-events:none;position:absolute;inset-inline:0;bottom:7rem;z-index:1;text-align:center;user-select:none;
@@ -298,6 +298,32 @@ body.ready #header{opacity:1;transform:none}
 [data-theme="light"] #home .pill.light .pin{background:var(--ink);color:#fff}
 [data-theme="light"] #home .pill.light .badge{background:#fff;color:var(--ink)}
 [data-theme="light"] #home .pill.outline-l .pin{border-color:rgba(23,20,18,.28);color:var(--hero-text)}
+
+/* hint that the portrait answers the cursor: pulsing ring on the face + a small label, gone after the first real move */
+.lq-hint{position:absolute;z-index:21;left:var(--hx,50%);top:var(--hy,45%);width:0;height:0;pointer-events:none;
+         opacity:0;transition:opacity .6s ease}
+.lq-hint.on{opacity:1}
+.lq-hint.gone{opacity:0}
+.lq-hint .ring{position:absolute;left:-48px;top:-48px;width:96px;height:96px;border-radius:50%;
+               border:1.5px solid var(--accent-from);animation:lqPulse 2.4s ease-out infinite}
+.lq-hint .ring+.ring{animation-delay:1.2s}
+.lq-hint .chip{position:absolute;left:0;top:66px;transform:translateX(-50%);white-space:nowrap;display:inline-flex;align-items:center;gap:.5rem;
+               padding:.5rem .875rem .5rem .75rem;border:1px solid rgba(255,255,255,.22);background:rgba(10,10,10,.6);
+               backdrop-filter:blur(6px);border-radius:999px;font-size:.75rem;font-weight:500;color:#fff}
+.lq-hint .cur{width:14px;height:14px;flex:none;color:var(--accent-from);animation:lqCur 2.4s ease-in-out infinite}
+@keyframes lqPulse{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+@keyframes lqCur{0%,100%{transform:translate(-4px,-3px)}25%{transform:translate(6px,-5px)}50%{transform:translate(4px,5px)}75%{transform:translate(-5px,3px)}}
+@media (prefers-reduced-motion:reduce){.lq-hint{display:none}}
+
+/* language switch - EN | ID chip, same family as the Menu button */
+.langsw{display:inline-flex;align-items:center;gap:.125rem;padding:.1875rem;border:1px solid var(--nav-chip-border);
+        background:var(--nav-chip-bg);backdrop-filter:blur(4px);border-radius:.875rem}
+.langsw button{font:inherit;font-size:.75rem;font-weight:600;letter-spacing:.05em;line-height:1;color:var(--nav-text-dim);
+               padding:.4375rem .625rem;border-radius:.6875rem;cursor:pointer;
+               transition:background-color .2s ease,color .2s ease}
+.langsw button:hover{color:var(--nav-text)}
+.langsw button.on{background:var(--nav-text);color:var(--ink)}
+[data-theme="light"] .langsw button.on{color:#fff}
 
 /* theme toggle - same chip as the Menu button */
 .themebtn .i-moon{display:none}
@@ -526,7 +552,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 }
 @media (min-width:1024px){
   #header nav{display:block}
-  .hero-grid{display:grid;min-height:100lvh;grid-template-columns:repeat(12,1fr);gap:2.5rem;padding:9rem 2rem 7rem;align-items:center}
+  .hero-grid{display:grid;min-height:calc(100lvh - 3.5rem);grid-template-columns:repeat(12,1fr);gap:2.5rem;padding:9rem 2rem 7rem;align-items:center}
   .hcol-l{grid-column:span 7}
   .hcol-r{grid-column:span 5;align-items:flex-end}
   .hcard,.stack{width:19rem;max-width:19rem}
@@ -565,41 +591,45 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 <div id="loader">
   <div class="lc">
     <div class="lw"><svg class="ic"><use href="#i-logo"/></svg> Julius Gunawan</div>
-    <p class="lt">Systems that decide, not dashboards that report.</p>
+    <p class="lt" data-i18n="loader.tag">Systems that decide, not dashboards that report.</p>
   </div>
   <div class="lp">
     <div class="track"><div class="fill"></div></div>
-    <div class="lmeta"><span>Loading</span><span class="num">000</span></div>
+    <div class="lmeta"><span data-i18n="loader.loading">Loading</span><span class="num">000</span></div>
   </div>
 </div>
 
 <!-- ============ HEADER ============ -->
 <header id="header">
   <div class="shell bar">
-    <button class="brandbtn" data-scroll="home" aria-label="Back to top">
+    <button class="brandbtn" data-scroll="home" aria-label="Back to top" data-i18n-attr="aria-label:a.top">
       <span class="brand"><svg class="ic"><use href="#i-logo"/></svg> Julius Gunawan</span>
     </button>
-    <nav aria-label="Primary">
+    <nav aria-label="Primary" data-i18n-attr="aria-label:a.primary">
       <ul>
-        <li><button data-scroll="home" aria-current="page"><span>Home</span></button></li>
-        <li><button data-scroll="works"><span>Work</span></button></li>
-        <li><button data-scroll="services"><span>Services</span><span class="caret">&#9662;</span></button></li>
-        <li><button data-scroll="about"><span>About</span></button></li>
-        <li><button data-scroll="numbers"><span>Numbers</span></button></li>
-        <li><button data-modal><span>Contact</span></button></li>
+        <li><button data-scroll="home" aria-current="page"><span data-i18n="nav.home">Home</span></button></li>
+        <li><button data-scroll="works"><span data-i18n="nav.work">Work</span></button></li>
+        <li><button data-scroll="services"><span data-i18n="nav.services">Services</span><span class="caret">&#9662;</span></button></li>
+        <li><button data-scroll="about"><span data-i18n="nav.about">About</span></button></li>
+        <li><button data-scroll="numbers"><span data-i18n="nav.numbers">Numbers</span></button></li>
+        <li><button data-modal><span data-i18n="nav.contact">Contact</span></button></li>
       </ul>
     </nav>
     <div class="hright">
       <div class="clock">
-        <span class="lbl">Local time</span>
+        <span class="lbl" data-i18n="clock.lbl">Local time</span>
         <span class="t" data-clock-time>9:41am</span>
         <span class="sep">&bull;</span>
         <span class="d" data-clock-date>12 March, 2025</span>
       </div>
+      <div class="langsw" role="group" aria-label="Language" data-i18n-attr="aria-label:a.lang">
+        <button type="button" data-lang="en" class="on" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="id" aria-pressed="false" lang="id">ID</button>
+      </div>
       <button class="menubtn themebtn" data-theme-toggle aria-label="Switch to light theme">
         <span><svg class="ic i-sun"><use href="#i-sun"/></svg><svg class="ic i-moon"><use href="#i-moon"/></svg></span>
       </button>
-      <button class="menubtn" data-menu-open aria-label="Open menu">
+      <button class="menubtn" data-menu-open aria-label="Open menu" data-i18n-attr="aria-label:a.menu">
         <span><svg class="ic"><use href="#i-grid"/></svg><span class="word">Menu</span></span>
       </button>
     </div>
@@ -610,38 +640,42 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 <!-- ============ HERO ============ -->
 <section id="home">
   <div id="liquid">
-    <img class="img-dark" src="assets/hero-base.jpg" alt="Portrait of Julius Gunawan in a dark suit against a near-black backdrop" fetchpriority="high" decoding="async">
+    <img class="img-dark" src="assets/hero-base.jpg" alt="Portrait of Julius Gunawan in a dark suit against a near-black backdrop" data-i18n-attr="alt:hero.alt" fetchpriority="high" decoding="async">
     <img class="img-light" src="assets/hero-light.jpg" alt="" aria-hidden="true" decoding="async">
     <canvas aria-hidden="true"></canvas>
   </div>
   <div class="vignette"></div>
+  <div class="lq-hint" aria-hidden="true">
+    <span class="ring"></span><span class="ring"></span>
+    <span class="chip"><svg class="cur" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2.5 20 11l-7 2.2L10.4 20z"/></svg><span data-i18n="hint.move">Move your cursor over the portrait</span></span>
+  </div>
   <div class="watermark rv" data-gate style="--d:300ms;--ty:20px;--op:1">JULIUS</div>
 
   <div class="shell hero-grid">
     <div class="hcol-l">
-      <p class="eyebrow light rv" data-gate style="--d:200ms;--ty:10px">AI Automation Engineer</p>
+      <p class="eyebrow light rv" data-gate style="--d:200ms;--ty:10px" data-i18n="hero.eyebrow">AI Automation Builder</p>
       <h1 class="rv" data-gate style="--d:250ms;--ty:0px">
-        <span class="ln"><i style="--d:250ms">Systems that</i></span>
-        <span class="ln"><i style="--d:370ms">decide, not</i></span>
-        <span class="ln"><i style="--d:490ms">dashboards</i></span>
+        <span class="ln"><i style="--d:250ms" data-i18n="hero.l1">Systems that</i></span>
+        <span class="ln"><i style="--d:370ms" data-i18n="hero.l2">decide, not</i></span>
+        <span class="ln"><i style="--d:490ms" data-i18n="hero.l3">dashboards</i></span>
       </h1>
       <div class="rating rv" data-gate style="--d:650ms;--ty:10px">
         <span class="stars" aria-hidden="true">
           <svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg>
         </span>
-        <span class="txt">4 live demos you can open right now</span>
+        <span class="txt" data-i18n="hero.rating">7 live demos you can open right now</span>
       </div>
       <div class="hcta rv" data-gate style="--d:750ms;--ty:10px">
         <span class="pill light arw" data-modal role="button" tabindex="0">
-          <span class="pin">Let's talk<span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+          <span class="pin"><span data-i18n="hero.talk">Let's talk</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
         </span>
-        <span class="pill outline-l" data-scroll="works" role="button" tabindex="0"><span class="pin">View work</span></span>
+        <span class="pill outline-l" data-scroll="works" role="button" tabindex="0"><span class="pin" data-i18n="hero.view">View work</span></span>
       </div>
     </div>
 
     <div class="hcol-r">
       <div class="hcard rv" data-gate style="--d:400ms;--ty:16px;--sc:.96">
-        <div class="row" data-card-next role="button" tabindex="0" aria-label="Next capability">
+        <div class="row" data-card-next role="button" tabindex="0" aria-label="Next capability" data-i18n-attr="aria-label:a.nextcap">
           <span class="tile"><svg class="ic"><use href="#i-logo"/></svg></span>
           <span class="panel">
             <span class="slot">
@@ -650,8 +684,8 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
             <span class="bot">
               <span class="dots"></span>
               <span class="navs">
-                <button class="prev" type="button" aria-label="Previous"><svg class="ic"><use href="#i-arrow"/></svg></button>
-                <button class="next" type="button" aria-label="Next"><svg class="ic"><use href="#i-arrow"/></svg></button>
+                <button class="prev" type="button" aria-label="Previous" data-i18n-attr="aria-label:a.prev"><svg class="ic"><use href="#i-arrow"/></svg></button>
+                <button class="next" type="button" aria-label="Next" data-i18n-attr="aria-label:a.next"><svg class="ic"><use href="#i-arrow"/></svg></button>
               </span>
             </span>
           </span>
@@ -659,7 +693,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
       </div>
 
       <div class="stack rv" data-gate style="--d:550ms;--ty:14px">
-        <p class="lbl">Built with</p>
+        <p class="lbl" data-i18n="hero.built">Built with</p>
         <ul>
           <li><span><svg class="ic"><use href="#i-dot"/></svg>Python</span></li>
           <li><span><svg class="ic"><use href="#i-dot"/></svg>JavaScript</span></li>
@@ -674,9 +708,9 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   </div>
 
   <div class="shell hstatus rv" data-gate style="--d:900ms;--ty:0px">
-    <span>Economics, then engineering</span>
+    <span data-i18n="hero.s1">Economics, then engineering</span>
     <span class="mid">Remote-first &middot; UTC+8</span>
-    <span class="end">Scroll to explore <span aria-hidden="true">&darr;</span></span>
+    <span class="end" data-i18n="hero.s3">Scroll to explore <span aria-hidden="true">&darr;</span></span>
   </div>
 </section>
 
@@ -684,25 +718,25 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 <section id="about">
   <div class="shell in">
     <div class="stackwrap">
-      <p class="eyebrow">About</p>
+      <p class="eyebrow" data-i18n="about.eyebrow">About</p>
       <ul class="stackgrid rv" style="--ty:14px">
-        <li><span class="k">Python</span><span class="v">Agents, data pipelines, document generation</span></li>
-        <li><span class="k">JavaScript</span><span class="v">Web apps and realtime interfaces</span></li>
-        <li><span class="k">three.js / WebGL</span><span class="v">Realtime 3D in the browser</span></li>
-        <li><span class="k">Apps Script</span><span class="v">Tools that live inside Google Sheets</span></li>
-        <li><span class="k">LLM APIs</span><span class="v">Orchestration, with the numbers kept deterministic</span></li>
-        <li><span class="k">Git &amp; static hosting</span><span class="v">Ship on push, no server to babysit</span></li>
+        <li><span class="k">Python</span><span class="v" data-i18n="about.py">Agents, data pipelines, document generation</span></li>
+        <li><span class="k">JavaScript</span><span class="v" data-i18n="about.js">Web apps and realtime interfaces</span></li>
+        <li><span class="k">three.js / WebGL</span><span class="v" data-i18n="about.three">Realtime 3D in the browser</span></li>
+        <li><span class="k">Apps Script</span><span class="v" data-i18n="about.gas">Tools that live inside Google Sheets</span></li>
+        <li><span class="k">LLM APIs</span><span class="v" data-i18n="about.llm">Orchestration, with the numbers kept deterministic</span></li>
+        <li><span class="k">Git &amp; static hosting</span><span class="v" data-i18n="about.git">Ship on push, no server to babysit</span></li>
       </ul>
       <p class="stacknote rv" style="--d:200ms;--ty:10px">
         <svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>
-        Based in Indonesia, UTC+8 — working with teams in any time zone.
+        <span data-i18n="about.note">Based in Indonesia, UTC+8 — working with teams in any time zone.</span>
       </p>
     </div>
     <div class="statement">
-      <h2 class="rv" data-words>I work with teams who are drowning in manual process, and I ship <span class="mut">multi-agent systems, internal tools, and the automation that quietly takes the work off their desk.</span></h2>
+      <h2 class="rv" data-words data-i18n="about.stmt">I work with teams who are drowning in manual process, and I ship <span class="mut">multi-agent systems, internal tools, and the automation that quietly takes the work off their desk.</span></h2>
       <div class="about-foot rv" style="--d:200ms;--ty:12px">
         <div>
-          <p class="lbl">Find me online</p>
+          <p class="lbl" data-i18n="about.find">Find me online</p>
           <div class="socials">
             <a href="mailto:juliusgunawan1307@gmail.com" class="accent" aria-label="Email"><svg class="ic"><use href="#i-arrow-ur"/></svg></a>
             <a href="https://github.com/juliusgunawan0707" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic"><use href="#i-github"/></svg></a>
@@ -710,7 +744,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
           </div>
         </div>
         <span class="pill outline arw" data-scroll="works" role="button" tabindex="0">
-          <span class="pin">See the work<span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+          <span class="pin"><span data-i18n="about.see">See the work</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
         </span>
       </div>
     </div>
@@ -718,12 +752,12 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 </section>
 
 <!-- ============ BAND ============ -->
-<section class="band" aria-label="I build systems">
+<section class="band" aria-label="I build systems" data-i18n-attr="aria-label:a.band">
   <ul class="shell">
-    <li class="rv" style="--d:0ms;--ty:28px"><span class="tile t-light">I</span></li>
-    <li class="rv" style="--d:120ms;--ty:28px"><span class="tile t-accent">Build</span></li>
+    <li class="rv" style="--d:0ms;--ty:28px"><span class="tile t-light" data-i18n="band.1">I</span></li>
+    <li class="rv" style="--d:120ms;--ty:28px"><span class="tile t-accent" data-i18n="band.2">Build</span></li>
     <li class="rv" style="--d:240ms;--ty:28px"><span class="tile t-dark"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></li>
-    <li class="rv" style="--d:360ms;--ty:28px"><span class="tile t-ghost">Systems</span></li>
+    <li class="rv" style="--d:360ms;--ty:28px"><span class="tile t-ghost" data-i18n="band.3">Systems</span></li>
   </ul>
 </section>
 
@@ -731,52 +765,52 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 <section id="works">
   <div class="shell in">
     <div class="works-head">
-      <p class="eyebrow ring rv">Portfolio</p>
-      <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms">Selected work</i></span></h2>
+      <p class="eyebrow ring rv" data-i18n="works.eyebrow">Portfolio</p>
+      <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms" data-i18n="works.title">Selected work</i></span></h2>
     </div>
     <ul class="cards">
       <li class="rv" style="--d:0ms;--ty:48px"><a href="https://juliusgunawan0707.github.io/workline/" target="_blank" rel="noopener">
         <article class="card">
-          <div class="meta"><span>Automation &mdash; 2026</span>
-            <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <img class="bg" style="--pos:0% 0%" src="assets/work/workline.webp" width="960" height="900" loading="lazy" decoding="async" alt="Workline dashboard with the day’s checklist and SKP progress">
+          <div class="meta"><span data-i18n="w1.meta">Automation &mdash; 2026</span>
+            <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
+          <img class="bg" style="--pos:0% 0%" src="assets/work/workline.webp" width="960" height="900" loading="lazy" decoding="async" alt="Workline dashboard with the day’s checklist and SKP progress" data-i18n-attr="alt:w1.alt">
           <div class="body">
             <h3>Workline</h3>
-            <p>A work manager for public-sector staff: log a task once and the attendance recap, quarterly performance report and meeting minutes generate themselves — every figure computed, never invented.</p>
-            <div class="tags"><span class="tag">Single-file app</span><span class="tag">Offline-first</span><span class="tag">Document generation</span></div>
+            <p data-i18n="w1.p">A work manager for public-sector staff: log a task once and the attendance recap, quarterly performance report and meeting minutes generate themselves — every figure computed, never invented.</p>
+            <div class="tags"><span class="tag" data-i18n="t.single">Single-file app</span><span class="tag">Offline-first</span><span class="tag" data-i18n="t.docgen">Document generation</span></div>
           </div>
         </article></a></li>
       <li class="rv" style="--d:90ms;--ty:48px"><a href="https://juliusgunawan0707.github.io/nusantara/" target="_blank" rel="noopener">
         <article class="card">
-          <div class="meta"><span>WebGL &mdash; 2026</span>
-            <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <img class="bg" style="--pos:0% 50%" src="assets/work/nusantara.webp" width="960" height="900" loading="lazy" decoding="async" alt="Nusantara opening scene with the NUSA letterforms in the rainforest">
+          <div class="meta"><span data-i18n="w2.meta">WebGL &mdash; 2026</span>
+            <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
+          <img class="bg" style="--pos:0% 50%" src="assets/work/nusantara.webp" width="960" height="900" loading="lazy" decoding="async" alt="Nusantara opening scene with the NUSA letterforms in the rainforest" data-i18n-attr="alt:w2.alt">
           <div class="body">
             <h3>Nusantara</h3>
-            <p>Four acts along the nationhood axis of Indonesia's new capital, rendered live in the browser — architecture, terrain and light, sourced from official figures.</p>
-            <div class="tags"><span class="tag">three.js</span><span class="tag">Realtime 3D</span><span class="tag">Art direction</span></div>
+            <p data-i18n="w2.p">Four acts along the nationhood axis of Indonesia's new capital, rendered live in the browser — architecture, terrain and light, sourced from official figures.</p>
+            <div class="tags"><span class="tag">three.js</span><span class="tag" data-i18n="t.rt3d">Realtime 3D</span><span class="tag" data-i18n="t.art">Art direction</span></div>
           </div>
         </article></a></li>
-      <li class="rv" style="--d:180ms;--ty:48px"><a href="https://juliusgunawan0707.github.io/cola-wars/" target="_blank" rel="noopener">
+      <li class="rv" style="--d:180ms;--ty:48px"><a href="https://investment-monitor-demo.vercel.app/" target="_blank" rel="noopener">
         <article class="card">
-          <div class="meta"><span>3D Product &mdash; 2026</span>
-            <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <img class="bg" style="--pos:50% 50%" src="assets/work/colawars.webp" width="960" height="900" loading="lazy" decoding="async" alt="Cola Wars landing page with the Coca-Cola and Pepsi cans">
+          <div class="meta"><span data-i18n="w3.meta">Dashboard &mdash; 2026</span>
+            <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
+          <img class="bg" style="--pos:0% 0%" src="assets/work/investmon.webp" width="960" height="720" loading="lazy" decoding="async" alt="Investment Monitor dashboard with the pre-PKS stage chart and summary cards" data-i18n-attr="alt:w3.alt">
           <div class="body">
-            <h3>Cola Wars</h3>
-            <p>One soda can, two brand worlds. The model tracks your cursor, and a single click swaps the label, the palette and the entire design language around it.</p>
-            <div class="tags"><span class="tag">model-viewer</span><span class="tag">GLB</span><span class="tag">UV mapping</span></div>
+            <h3>Investment Monitor</h3>
+            <p data-i18n="w3.p">Tracks 115 companies through a 34-step onboarding pipeline — agreements, permits, contributions and a land map — in English or Indonesian. All data is synthetic.</p>
+            <div class="tags"><span class="tag" data-i18n="t.dash">Dashboard</span><span class="tag" data-i18n="t.dataviz">Data visualisation</span><span class="tag" data-i18n="t.bi">Bilingual</span></div>
           </div>
         </article></a></li>
       <li class="rv" style="--d:270ms;--ty:48px"><a href="work/gbk-3d/" target="_blank" rel="noopener">
         <article class="card">
-          <div class="meta"><span>Realtime &mdash; 2026</span>
-            <span class="live">Live demo <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <img class="bg" style="--pos:55% 50%" src="assets/work/gbk.webp" width="960" height="900" loading="lazy" decoding="async" alt="GBK 3D stadium bowl with the match in progress">
+          <div class="meta"><span data-i18n="w4.meta">Realtime &mdash; 2026</span>
+            <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
+          <img class="bg" style="--pos:55% 50%" src="assets/work/gbk.webp" width="960" height="900" loading="lazy" decoding="async" alt="GBK 3D stadium bowl with the match in progress" data-i18n-attr="alt:w4.alt">
           <div class="body">
             <h3>GBK 3D</h3>
-            <p>A browser replica of Gelora Bung Karno — 33,794 instanced spectators and a real match simulated end to end, in 80 draw calls a frame.</p>
-            <div class="tags"><span class="tag">three.js</span><span class="tag">WebGL</span><span class="tag">Simulation</span></div>
+            <p data-i18n="w4.p">A browser replica of Gelora Bung Karno — 44,341 animated spectators and a real match replayed end to end, rendered in 4.8 ms a frame.</p>
+            <div class="tags"><span class="tag">three.js</span><span class="tag">WebGL</span><span class="tag" data-i18n="t.skel">Skeletal animation</span></div>
           </div>
         </article></a></li>
     </ul>
@@ -786,24 +820,24 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 <!-- ============ SERVICES ============ -->
 <section id="services">
   <div class="shell in">
-    <p class="eyebrow rv">Services</p>
-    <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms">What I do best</i></span></h2>
+    <p class="eyebrow rv" data-i18n="svc.eyebrow">Services</p>
+    <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms" data-i18n="svc.title">What I do best</i></span></h2>
     <ul>
       <li class="srow rv" style="--d:0ms;--ty:24px"><a href="work/oracle/" target="_blank" rel="noopener">
-        <div class="r"><span class="idx">01</span><h3>Multi-Agent Systems</h3>
-        <p>Agents that argue, audit each other, and reach a verdict you can trace.</p>
+        <div class="r"><span class="idx">01</span><h3 data-i18n="svc.1.t">Multi-Agent Systems</h3>
+        <p data-i18n="svc.1.p">Agents that argue, audit each other, and reach a verdict you can trace.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
       <li class="srow rv" style="--d:80ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/workline/" target="_blank" rel="noopener">
-        <div class="r"><span class="idx">02</span><h3>Workflow Automation</h3>
-        <p>Document work that used to take a week, done in one command.</p>
+        <div class="r"><span class="idx">02</span><h3 data-i18n="svc.2.t">Workflow Automation</h3>
+        <p data-i18n="svc.2.p">Document work that used to take a week, done in one command.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
       <li class="srow rv" style="--d:160ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/btc-intrinsic-value/" target="_blank" rel="noopener">
-        <div class="r"><span class="idx">03</span><h3>Data &amp; Analysis</h3>
-        <p>Deterministic numbers from real sources — the model only writes the prose.</p>
+        <div class="r"><span class="idx">03</span><h3 data-i18n="svc.3.t">Data &amp; Analysis</h3>
+        <p data-i18n="svc.3.p">Deterministic numbers from real sources — the model only writes the prose.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
-      <li class="srow rv" style="--d:240ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/nusantara/" target="_blank" rel="noopener">
-        <div class="r"><span class="idx">04</span><h3>Web Applications</h3>
-        <p>Dashboards and tools that people actually open the next morning.</p>
+      <li class="srow rv" style="--d:240ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/cola-wars/" target="_blank" rel="noopener">
+        <div class="r"><span class="idx">04</span><h3 data-i18n="svc.4.t">Web Applications</h3>
+        <p data-i18n="svc.4.p">Dashboards and tools that people actually open the next morning.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
     </ul>
   </div>
@@ -813,13 +847,13 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 <section id="numbers">
   <div class="shell in">
     <div class="statpanel rv" style="--ty:40px;--sc:.99">
-      <p class="eyebrow light">By the numbers</p>
-      <h2><span class="ln"><i style="--d:120ms">Proof in the work, not the words.</i></span></h2>
+      <p class="eyebrow light" data-i18n="num.eyebrow">By the numbers</p>
+      <h2><span class="ln"><i style="--d:120ms" data-i18n="num.title">Proof in the work, not the words.</i></span></h2>
       <ul class="statgrid">
-        <li class="rv" style="--d:0ms;--ty:20px"><div class="n"><span data-count="33794">0</span></div><div class="l">Spectators rendered in realtime</div></li>
-        <li class="rv" style="--d:90ms;--ty:20px"><div class="n"><span data-count="80">0</span></div><div class="l">Draw calls per frame, down from 245</div></li>
-        <li class="rv" style="--d:180ms;--ty:20px"><div class="n"><span data-count="4">0</span></div><div class="l">Live demos you can open now</div></li>
-        <li class="rv" style="--d:270ms;--ty:20px"><div class="n"><span data-count="0">0</span></div><div class="l">Backends — everything runs client-side</div></li>
+        <li class="rv" style="--d:0ms;--ty:20px"><div class="n"><span data-count="10000">0</span></div><div class="l" data-i18n="num.1">Simulated price paths behind every strategy check</div></li>
+        <li class="rv" style="--d:90ms;--ty:20px"><div class="n"><span data-count="3549">0</span></div><div class="l" data-i18n="num.2">Days of on-chain history, from free public data</div></li>
+        <li class="rv" style="--d:180ms;--ty:20px"><div class="n"><span data-count="60">0</span></div><div class="l" data-i18n="num.3">Automated tests on the trading engine, all passing</div></li>
+        <li class="rv" style="--d:270ms;--ty:20px"><div class="n"><span data-count="243" data-suffix="&times;">0</span></div><div class="l" data-i18n="num.4">Faster ranking, with provably identical results</div></li>
       </ul>
     </div>
   </div>
@@ -831,39 +865,39 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   <div class="shell in">
     <div class="fcta">
       <h2 class="rv" style="--ty:0px">
-        <span class="ln"><i style="--d:0ms">Got something that</i></span>
-        <span class="ln"><i style="--d:100ms">should run itself?</i></span>
-        <span class="ln"><i style="--d:200ms">Let's build it.</i></span>
+        <span class="ln"><i style="--d:0ms" data-i18n="f.l1">Got something that</i></span>
+        <span class="ln"><i style="--d:100ms" data-i18n="f.l2">should run itself?</i></span>
+        <span class="ln"><i style="--d:200ms" data-i18n="f.l3">Let's build it.</i></span>
       </h2>
       <span class="pill light arw" data-modal role="button" tabindex="0">
-        <span class="pin">Start a project<span class="badge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span>
+        <span class="pin"><span data-i18n="cta.start">Start a project</span><span class="badge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span>
       </span>
     </div>
     <div class="fcols">
       <div class="bcol">
         <div class="b"><svg class="ic"><use href="#i-logo"/></svg> Julius Gunawan</div>
-        <p>An engineer who builds the systems he used to do by hand — agents, automation, and the tooling that connects them.</p>
+        <p data-i18n="f.about">A builder who automates the work he used to do by hand — agents, workflows, and the tooling that connects them.</p>
       </div>
       <div>
-        <h3>Site</h3>
+        <h3 data-i18n="f.site">Site</h3>
         <ul>
-          <li><a class="alink" href="#about"><span>About</span></a></li>
-          <li><a class="alink" href="#works"><span>Work</span></a></li>
-          <li><a class="alink" href="#numbers"><span>Numbers</span></a></li>
-          <li><a class="alink" href="mailto:juliusgunawan1307@gmail.com"><span>Contact</span></a></li>
+          <li><a class="alink" href="#about"><span data-i18n="nav.about">About</span></a></li>
+          <li><a class="alink" href="#works"><span data-i18n="nav.work">Work</span></a></li>
+          <li><a class="alink" href="#numbers"><span data-i18n="nav.numbers">Numbers</span></a></li>
+          <li><a class="alink" href="mailto:juliusgunawan1307@gmail.com"><span data-i18n="nav.contact">Contact</span></a></li>
         </ul>
       </div>
       <div>
-        <h3>Services</h3>
+        <h3 data-i18n="nav.services">Services</h3>
         <ul>
-          <li><a class="alink" href="#services"><span>Multi-Agent Systems</span></a></li>
-          <li><a class="alink" href="#services"><span>Workflow Automation</span></a></li>
-          <li><a class="alink" href="#services"><span>Data &amp; Analysis</span></a></li>
-          <li><a class="alink" href="#services"><span>Web Applications</span></a></li>
+          <li><a class="alink" href="#services"><span data-i18n="svc.1.t">Multi-Agent Systems</span></a></li>
+          <li><a class="alink" href="#services"><span data-i18n="svc.2.t">Workflow Automation</span></a></li>
+          <li><a class="alink" href="#services"><span data-i18n="svc.3.t">Data &amp; Analysis</span></a></li>
+          <li><a class="alink" href="#services"><span data-i18n="svc.4.t">Web Applications</span></a></li>
         </ul>
       </div>
       <div>
-        <h3>Elsewhere</h3>
+        <h3 data-i18n="f.else">Elsewhere</h3>
         <ul>
           <li><a class="alink" href="https://github.com/juliusgunawan0707" target="_blank" rel="noopener"><span>GitHub</span></a></li>
           <li><a class="alink" href="https://www.linkedin.com/in/julius-gunawan/" target="_blank" rel="noopener"><span>LinkedIn</span></a></li>
@@ -872,10 +906,10 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
       </div>
     </div>
     <div class="flegal">
-      <span>&copy; 2026 Julius Gunawan. All rights reserved.</span>
+      <span data-i18n="f.copy">&copy; 2026 Julius Gunawan. All rights reserved.</span>
       <span class="r">
-        <a class="alink legal" href="#privacy"><span>Privacy</span></a>
-        <a class="alink legal" href="#terms"><span>Terms</span></a>
+        <a class="alink legal" href="#privacy"><span data-i18n="f.privacy">Privacy</span></a>
+        <a class="alink legal" href="#terms"><span data-i18n="f.terms">Terms</span></a>
       </span>
     </div>
   </div>
@@ -886,55 +920,248 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
 <div id="navmenu" hidden>
   <div class="shell top">
     <span class="brand"><svg class="ic"><use href="#i-logo"/></svg> Julius Gunawan</span>
-    <button class="closebtn" data-menu-close><svg class="ic"><use href="#i-x"/></svg> Close</button>
+    <button class="closebtn" data-menu-close><svg class="ic"><use href="#i-x"/></svg> <span data-i18n="a.close">Close</span></button>
   </div>
-  <nav class="shell mid" aria-label="Overlay">
+  <nav class="shell mid" aria-label="Overlay" data-i18n-attr="aria-label:a.overlay">
     <ul>
-      <li><button class="nitem" data-scroll="home"><span class="n">01</span><span class="l">Home</span></button></li>
-      <li><button class="nitem" data-scroll="works"><span class="n">02</span><span class="l">Work</span></button></li>
-      <li><button class="nitem" data-scroll="services"><span class="n">03</span><span class="l">Services</span></button></li>
-      <li><button class="nitem" data-scroll="about"><span class="n">04</span><span class="l">About</span></button></li>
-      <li><button class="nitem" data-scroll="numbers"><span class="n">05</span><span class="l">Numbers</span></button></li>
-      <li><button class="nitem" data-modal><span class="n">06</span><span class="l">Contact</span></button></li>
+      <li><button class="nitem" data-scroll="home"><span class="n">01</span><span class="l" data-i18n="nav.home">Home</span></button></li>
+      <li><button class="nitem" data-scroll="works"><span class="n">02</span><span class="l" data-i18n="nav.work">Work</span></button></li>
+      <li><button class="nitem" data-scroll="services"><span class="n">03</span><span class="l" data-i18n="nav.services">Services</span></button></li>
+      <li><button class="nitem" data-scroll="about"><span class="n">04</span><span class="l" data-i18n="nav.about">About</span></button></li>
+      <li><button class="nitem" data-scroll="numbers"><span class="n">05</span><span class="l" data-i18n="nav.numbers">Numbers</span></button></li>
+      <li><button class="nitem" data-modal><span class="n">06</span><span class="l" data-i18n="nav.contact">Contact</span></button></li>
     </ul>
   </nav>
   <div class="shell bot">
-    <span>Local time &mdash; <span data-clock-time>9:41am</span></span>
-    <button data-modal>Start a project &rarr;</button>
+    <span><span data-i18n="clock.lbl">Local time</span> &mdash; <span data-clock-time>9:41am</span></span>
+    <button data-modal data-i18n="cta.startarrow">Start a project &rarr;</button>
   </div>
 </div>
 
 <!-- ============ MODAL ============ -->
 <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
   <div class="panel">
-    <button class="x" data-modal-close aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+    <button class="x" data-modal-close aria-label="Close" data-i18n-attr="aria-label:a.close"><svg class="ic"><use href="#i-x"/></svg></button>
     <div class="form-state">
       <div class="head">
-        <span class="k">Start a project</span>
-        <h2 id="modal-title">Tell me what you're building.</h2>
+        <span class="k" data-i18n="cta.start">Start a project</span>
+        <h2 id="modal-title" data-i18n="m.title">Tell me what you're building.</h2>
       </div>
       <form novalidate>
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-        <div><label for="f-name">Name</label><input id="f-name" name="name" type="text" required placeholder="Your name"></div>
-        <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" required placeholder="you@company.com"></div>
-        <div><label for="f-msg">Project</label><textarea id="f-msg" name="project" rows="4" required placeholder="A few words about your project, timeline, and budget."></textarea></div>
+        <div><label for="f-name" data-i18n="m.name">Name</label><input id="f-name" name="name" type="text" required placeholder="Your name" data-i18n-attr="placeholder:m.name.ph"></div>
+        <div><label for="f-email" data-i18n="m.email">Email</label><input id="f-email" name="email" type="email" required placeholder="you@company.com" data-i18n-attr="placeholder:m.email.ph"></div>
+        <div><label for="f-msg" data-i18n="m.msg">Project</label><textarea id="f-msg" name="project" rows="4" required placeholder="A few words about your project, timeline, and budget." data-i18n-attr="placeholder:m.msg.ph"></textarea></div>
         <div class="frow">
-          <span class="note">I reply within one business day.</span>
+          <span class="note" data-i18n="m.note">I reply within one business day.</span>
           <button class="pill dark arw" type="submit">
-            <span class="pin"><span class="lbl">Send request</span><span class="badge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span>
+            <span class="pin"><span class="lbl" data-i18n="m.send">Send request</span><span class="badge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span>
           </button>
         </div>
       </form>
     </div>
     <div class="ok" hidden>
       <span class="mark"><svg class="ic"><use href="#i-logo"/></svg></span>
-      <h2>Request received</h2>
-      <p>Thanks for reaching out — I'll get back to you within one business day.</p>
-      <span class="pill dark" data-modal-close role="button" tabindex="0"><span class="pin">Close</span></span>
+      <h2 data-i18n="m.ok">Request received</h2>
+      <p data-i18n="m.okp">Thanks for reaching out — I'll get back to you within one business day.</p>
+      <span class="pill dark" data-modal-close role="button" tabindex="0"><span class="pin" data-i18n="a.close">Close</span></span>
     </div>
   </div>
 </div>
 
+<script>
+/* ---------------- language (EN default | ID) ----------------
+   English text lives in the HTML itself (data-i18n / data-i18n-attr); it is captured
+   here, before anything else touches the DOM, and the Indonesian table sits beside it.
+   JS-only strings (carousel, form states, theme label) are listed in JS_EN. */
+(function(){
+  var ID = {
+ "meta.title": "Julius Gunawan — Spesialis Otomasi AI",
+ "meta.desc": "Saya membangun otomasi dan antarmuka realtime — pengelola kerja yang menulis sendiri dokumennya, dan 3D yang berjalan di tab browser. Tujuh demo live, tanpa slide.",
+ "loader.tag": "Sistem yang memutuskan, bukan dasbor yang sekadar melapor.",
+ "loader.loading": "Memuat",
+ "nav.home": "Beranda",
+ "nav.work": "Karya",
+ "nav.services": "Layanan",
+ "nav.about": "Tentang",
+ "nav.numbers": "Angka",
+ "nav.contact": "Kontak",
+ "clock.lbl": "Waktu lokal",
+ "a.top": "Kembali ke atas",
+ "a.primary": "Navigasi utama",
+ "a.menu": "Buka menu",
+ "a.lang": "Bahasa",
+ "a.nextcap": "Kemampuan berikutnya",
+ "a.prev": "Sebelumnya",
+ "a.next": "Berikutnya",
+ "a.close": "Tutup",
+ "a.overlay": "Menu layar penuh",
+ "a.band": "Saya membangun sistem",
+ "a.toLight": "Ganti ke tema terang",
+ "a.toDark": "Ganti ke tema gelap",
+ "hero.alt": "Potret Julius Gunawan berjas gelap dengan latar hampir hitam",
+ "hero.eyebrow": "Spesialis Otomasi AI",
+ "hero.l1": "Sistem yang",
+ "hero.l2": "memutuskan,",
+ "hero.l3": "bukan dasbor",
+ "hero.rating": "7 demo live yang bisa Anda buka sekarang",
+ "hero.talk": "Mari bicara",
+ "hero.view": "Lihat karya",
+ "hero.built": "Dibangun dengan",
+ "hero.s1": "Ekonomi, lalu rekayasa",
+ "hint.move": "Gerakkan kursor di atas potret",
+ "hint.touch": "Usap potret dengan jari",
+ "hero.s3": "Gulir untuk menjelajah <span aria-hidden=\"true\">&darr;</span>",
+ "car.0.c": "Sistem multi-agen",
+ "car.0.t": "Agen yang berdebat.",
+ "car.1.c": "Otomasi",
+ "car.1.t": "Dokumen yang tertulis sendiri.",
+ "car.2.c": "Data & analisis",
+ "car.2.t": "Angka yang bisa diaudit.",
+ "about.eyebrow": "Tentang",
+ "about.py": "Agen, pipeline data, pembuatan dokumen",
+ "about.js": "Aplikasi web dan antarmuka realtime",
+ "about.three": "3D realtime di browser",
+ "about.gas": "Alat yang hidup di dalam Google Sheets",
+ "about.llm": "Orkestrasi, dengan angka tetap deterministik",
+ "about.git": "Rilis saat push, tanpa server yang harus dijaga",
+ "about.note": "Berbasis di Indonesia, UTC+8 — bekerja dengan tim di zona waktu mana pun.",
+ "about.stmt": "Saya bekerja dengan tim yang kewalahan oleh proses manual, dan saya membangun <span class=\"mut\">sistem multi-agen, alat internal, dan otomasi yang diam-diam mengangkat pekerjaan itu dari meja mereka.</span>",
+ "about.find": "Temukan saya di",
+ "about.see": "Lihat karya",
+ "band.1": "Saya",
+ "band.2": "Bangun",
+ "band.3": "Sistem",
+ "works.eyebrow": "Portofolio",
+ "works.title": "Karya pilihan",
+ "w.live": "Demo live",
+ "w1.meta": "Otomasi &mdash; 2026",
+ "w1.alt": "Dasbor Workline dengan daftar tugas hari ini dan progres SKP",
+ "w1.p": "Pengelola kerja untuk staf sektor publik: catat tugas sekali, lalu rekap presensi, laporan kinerja triwulanan, dan notulen rapat tersusun sendiri — setiap angka dihitung, tak pernah dikarang.",
+ "t.single": "Aplikasi satu file",
+ "t.docgen": "Pembuatan dokumen",
+ "w2.meta": "WebGL &mdash; 2026",
+ "w2.alt": "Adegan pembuka Nusantara dengan huruf NUSA di tengah hutan hujan",
+ "w2.p": "Empat babak menyusuri sumbu kebangsaan ibu kota baru Indonesia, dirender langsung di browser — arsitektur, medan, dan cahaya, bersumber dari angka resmi.",
+ "t.rt3d": "3D realtime",
+ "t.art": "Arahan seni",
+ "w3.meta": "Dasbor &mdash; 2026",
+ "w3.alt": "Dasbor Investment Monitor dengan grafik tahapan pra-PKS dan kartu ringkasan",
+ "w3.p": "Memantau 115 perusahaan melalui pipeline onboarding 34 langkah — perjanjian, izin, kontribusi, dan peta lahan — dalam bahasa Inggris atau Indonesia. Seluruh data bersifat sintetis.",
+ "t.dash": "Dasbor",
+ "t.dataviz": "Visualisasi data",
+ "t.bi": "Dwibahasa",
+ "w4.meta": "Realtime &mdash; 2026",
+ "w4.alt": "Mangkuk stadion GBK 3D saat pertandingan berlangsung",
+ "w4.p": "Replika Gelora Bung Karno di browser — 44.341 suporter beranimasi dan satu pertandingan nyata yang diputar ulang dari awal sampai akhir, dirender dalam 4,8 ms per frame.",
+ "t.skel": "Animasi skeletal",
+ "svc.eyebrow": "Layanan",
+ "svc.title": "Yang paling saya kuasai",
+ "svc.1.t": "Sistem Multi-Agen",
+ "svc.1.p": "Agen yang berdebat, saling mengaudit, dan mencapai vonis yang bisa Anda telusuri.",
+ "svc.2.t": "Otomasi Alur Kerja",
+ "svc.2.p": "Pekerjaan dokumen yang dulu makan seminggu, selesai dengan satu perintah.",
+ "svc.3.t": "Data &amp; Analisis",
+ "svc.3.p": "Angka deterministik dari sumber nyata — model hanya menulis narasinya.",
+ "svc.4.t": "Aplikasi Web",
+ "svc.4.p": "Dasbor dan alat yang benar-benar dibuka orang keesokan paginya.",
+ "num.eyebrow": "Dalam angka",
+ "num.title": "Bukti ada di karya, bukan kata-kata.",
+ "num.1": "Lintasan harga simulasi di balik setiap uji strategi",
+ "num.2": "Hari riwayat on-chain, dari data publik gratis",
+ "num.3": "Tes otomatis pada mesin trading, semuanya lulus",
+ "num.4": "Lebih cepat dalam pemeringkatan, hasil terbukti identik",
+ "f.l1": "Punya sesuatu yang",
+ "f.l2": "seharusnya jalan sendiri?",
+ "f.l3": "Ayo kita bangun.",
+ "cta.start": "Mulai proyek",
+ "cta.startarrow": "Mulai proyek &rarr;",
+ "f.about": "Seorang builder yang mengotomasi pekerjaan yang dulu ia kerjakan manual — agen, alur kerja, dan perangkat yang menghubungkannya.",
+ "f.site": "Situs",
+ "f.else": "Di tempat lain",
+ "f.privacy": "Privasi",
+ "f.terms": "Ketentuan",
+ "f.copy": "&copy; 2026 Julius Gunawan. Hak cipta dilindungi.",
+ "m.title": "Ceritakan apa yang sedang Anda bangun.",
+ "m.name": "Nama",
+ "m.name.ph": "Nama Anda",
+ "m.email": "Email",
+ "m.email.ph": "anda@perusahaan.com",
+ "m.msg": "Proyek",
+ "m.msg.ph": "Beberapa kata tentang proyek, jadwal, dan anggaran Anda.",
+ "m.note": "Saya membalas dalam satu hari kerja.",
+ "m.send": "Kirim permintaan",
+ "m.fill": "Isi semua kolom",
+ "m.sending": "Mengirim…",
+ "m.ok": "Permintaan diterima",
+ "m.okp": "Terima kasih sudah menghubungi — saya akan membalas dalam satu hari kerja."
+};
+  var JS_EN = {
+ "hint.touch": "Swipe across the portrait",
+ "car.0.c": "Multi-agent systems",
+ "car.0.t": "Agents that debate.",
+ "car.1.c": "Automation",
+ "car.1.t": "Documents that write themselves.",
+ "car.2.c": "Data & analysis",
+ "car.2.t": "Numbers you can audit.",
+ "a.toLight": "Switch to light theme",
+ "a.toDark": "Switch to dark theme",
+ "m.fill": "Fill every field",
+ "m.sending": "Sending…"
+};
+  var EN = {};
+  function all(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+  all('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if (!(k in EN)) EN[k] = el.innerHTML;
+  });
+  all('[data-i18n-attr]').forEach(function(el){
+    el.getAttribute('data-i18n-attr').split(';').forEach(function(p){
+      var a = p.split(':');
+      if (!(a[1] in EN)) EN[a[1]] = el.getAttribute(a[0]);
+    });
+  });
+  var meta = document.querySelector('meta[name="description"]');
+  EN['meta.title'] = document.title;
+  EN['meta.desc'] = meta ? meta.getAttribute('content') : '';
+  for (var k in JS_EN) EN[k] = JS_EN[k];
+
+  var lang = 'en';
+  function t(k){
+    var d = lang === 'id' ? ID : EN;
+    return (k in d) ? d[k] : (k in EN ? EN[k] : k);
+  }
+  function apply(){
+    all('[data-i18n]').forEach(function(el){ el.innerHTML = t(el.getAttribute('data-i18n')); });
+    all('[data-i18n-attr]').forEach(function(el){
+      el.getAttribute('data-i18n-attr').split(';').forEach(function(p){
+        var a = p.split(':'); el.setAttribute(a[0], t(a[1]));
+      });
+    });
+    document.documentElement.lang = lang;
+    document.title = t('meta.title');
+    if (meta) meta.setAttribute('content', t('meta.desc'));
+    all('[data-lang]').forEach(function(b){
+      var on = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  function set(l, persist){
+    lang = l === 'id' ? 'id' : 'en';
+    apply();
+    if (persist){ try{ localStorage.setItem('lang', lang); }catch(e){} }
+    document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
+  }
+  window.I18N = { t: t, lang: function(){ return lang; }, set: set };
+  all('[data-lang]').forEach(function(b){
+    b.addEventListener('click', function(){ set(b.getAttribute('data-lang'), true); });
+  });
+  var saved = null;
+  try{ saved = localStorage.getItem('lang'); }catch(e){}
+  set(saved === 'id' ? 'id' : 'en', false);      /* English unless the visitor chose Indonesian */
+})();
+</script>
 <script type="importmap">
 { "imports": { "lenis": "./assets/vendor/lenis.mjs" } }
 </script>
@@ -1001,7 +1228,7 @@ function hoverSpring(trigger, tension, friction, render){
 }
 
 /* ---------------- reveals ---------------- */
-document.querySelectorAll('[data-words]').forEach(el=>{
+function splitWords(el){
   let i = 0;
   (function walk(node){
     [...node.childNodes].forEach(n=>{
@@ -1017,19 +1244,26 @@ document.querySelectorAll('[data-words]').forEach(el=>{
       } else if (n.nodeType === 1) walk(n);
     });
   })(el);
-});
+}
+document.querySelectorAll('[data-words]').forEach(splitWords);
+// the language switch rewrites the sentence, so the word spans are rebuilt
+document.addEventListener('langchange', ()=> document.querySelectorAll('[data-words]').forEach(splitWords));
 
 let ready = false;
 const gated = [];
-const io = new IntersectionObserver(entries=>{
+function onReveal(entries, obs){
   entries.forEach(e=>{
     if (!e.isIntersecting) return;
-    io.unobserve(e.target);
+    obs.unobserve(e.target);
     if (e.target.hasAttribute('data-gate') && !ready) gated.push(e.target);
     else e.target.classList.add('shown');
   });
-}, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
-document.querySelectorAll('.rv').forEach(el=> io.observe(el));
+}
+// scroll reveals wait until an element is 8% up from the bottom edge...
+const io = new IntersectionObserver(onReveal, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+// ...but hero items are on screen at load, and the status bar sits inside that bottom 8%, so they use the full viewport
+const ioHero = new IntersectionObserver(onReveal, { threshold: 0 });
+document.querySelectorAll('.rv').forEach(el=> (el.hasAttribute('data-gate') ? ioHero : io).observe(el));
 
 /* ---------------- loader ---------------- */
 (function loader(){
@@ -1055,6 +1289,7 @@ document.querySelectorAll('.rv').forEach(el=> io.observe(el));
     setTimeout(()=>{
       ready = true;
       document.body.classList.add('ready');
+      document.dispatchEvent(new Event('heroready'));
       startScroll();
       el.remove();
       gated.forEach((n, i)=> setTimeout(()=> n.classList.add('shown'), i * 0));
@@ -1080,10 +1315,18 @@ let setLiquidEnabled = ()=>{};
   let radius = BRUSH * dpr, diam = Math.ceil(radius * 2);
   let img = new Image(); img.decoding = 'async'; img.src = 'assets/hero-reveal.jpg';
   let loaded = false, rect = wrap.getBoundingClientRect();
-  const points = []; let last = null, idle = 0, enabled = true;
+  const points = []; let last = null, idle = 0, enabled = true, touched = false;
+  const hint = document.querySelector('.lq-hint');
+  const canHover = window.matchMedia('(hover: hover)').matches;
+  if (hint && !canHover){
+    const label = hint.querySelector('[data-i18n]');
+    label.setAttribute('data-i18n', 'hint.touch');
+    label.innerHTML = I18N.t('hint.touch');
+  }
   setLiquidEnabled = on=>{
     if (on === enabled) return;
     enabled = on;
+    if (hint) hint.classList.toggle('gone', !on || touched);
     points.length = 0; last = null;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
@@ -1104,8 +1347,21 @@ let setLiquidEnabled = ()=>{};
     radius = BRUSH * dpr; diam = Math.ceil(radius * 2);
     brush.width = diam; brush.height = diam;
     buildCover();
+    placeHint();
   }
-  img.onload = ()=>{ loaded = true; buildCover(); };
+  // where the face sits on screen, mapped through the same cover-fit the reveal image uses
+  function facePoint(u, v){
+    const s = Math.max(canvas.width / img.width, canvas.height / img.height);
+    const w = img.width * s, h = img.height * s;
+    return { x: (canvas.width - w) / 2 + u * w, y: (canvas.height - h) / 2 + v * h };
+  }
+  function placeHint(){
+    if (!hint || !loaded) return;
+    const f = facePoint(0.45, 0.40);
+    hint.style.setProperty('--hx', (f.x / dpr) + 'px');
+    hint.style.setProperty('--hy', (f.y / dpr) + 'px');
+  }
+  img.onload = ()=>{ loaded = true; buildCover(); placeHint(); };
   new ResizeObserver(resize).observe(wrap);
   resize();
 
@@ -1114,6 +1370,7 @@ let setLiquidEnabled = ()=>{};
     const r = wrap.getBoundingClientRect();
     const x = (e.clientX - r.left) * dpr, y = (e.clientY - r.top) * dpr;
     if (x < -radius || y < -radius || x > canvas.width + radius || y > canvas.height + radius){ last = null; return; }
+    if (!touched){ touched = true; if (hint) hint.classList.add('gone'); }
     if (last){
       const dx = x - last.x, dy = y - last.y;
       const dist = Math.hypot(dx, dy);
@@ -1154,6 +1411,33 @@ let setLiquidEnabled = ()=>{};
   }
   (function frame(){ requestAnimationFrame(frame); tick(); })();
 
+  // Scripted sweep across the face so the reveal is seen once without any input; stops the moment a real pointer moves.
+  function demo(){
+    if (!enabled || touched || !loaded) return;
+    const route = [[.30,.34],[.60,.37],[.36,.47],[.58,.52]].map(p=> facePoint(p[0], p[1]));
+    const legs = route.length - 1, DUR = 2800, t0 = performance.now();
+    let prev = null;
+    (function step(now){
+      if (!enabled || touched) return;
+      const t = Math.min((now - t0) / DUR, 1);
+      const e = t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;       // ease in-out
+      const f = e * legs, i = Math.min(Math.floor(f), legs - 1), k = f - i;
+      const x = route[i].x + (route[i+1].x - route[i].x) * k;
+      const y = route[i].y + (route[i+1].y - route[i].y) * k;
+      if (prev){
+        const dist = Math.hypot(x - prev.x, y - prev.y), n = Math.min(Math.ceil(dist / Math.max(radius * 0.3, 1)), 60);
+        for (let j = 1; j <= n; j++) points.push({ x: prev.x + (x - prev.x)*j/n, y: prev.y + (y - prev.y)*j/n });
+      } else points.push({ x, y });
+      prev = { x, y };
+      if (t < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  document.addEventListener('heroready', ()=>{
+    if (hint && enabled && !touched) hint.classList.add('on');
+    setTimeout(demo, 1400);
+    setTimeout(demo, 11000);          // one more nudge if nobody has touched it yet
+  });
+
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1'){
     window.__liquid = { tick, points, canvas, isLoaded: ()=> loaded };
   }
@@ -1161,11 +1445,7 @@ let setLiquidEnabled = ()=>{};
 
 /* ---------------- hero card carousel ---------------- */
 (function carousel(){
-  const items = [
-    { caption: 'Multi-agent systems', title: 'Agents that debate.' },
-    { caption: 'Automation',          title: 'Documents that write themselves.' },
-    { caption: 'Data & analysis',     title: 'Numbers you can audit.' }
-  ];
+  const items = [0, 1, 2].map(k=> ({ caption: 'car.' + k + '.c', title: 'car.' + k + '.t' }));
   const card = document.querySelector('.hcard');
   const slot = card.querySelector('.slot');
   const dots = card.querySelector('.dots');
@@ -1176,10 +1456,27 @@ let setLiquidEnabled = ()=>{};
     dots.appendChild(d);
   });
   function render(el, n){
-    el.querySelector('.cap').textContent = items[n].caption;
-    el.querySelector('.ttl').textContent = items[n].title;
+    el.querySelector('.cap').textContent = I18N.t(items[n].caption);
+    el.querySelector('.ttl').textContent = I18N.t(items[n].title);
   }
   render(slot.querySelector('.item'), 0);
+  // items are absolutely positioned, so the slot is sized from the tallest caption + title in the current language
+  function fitSlot(){
+    const probe = slot.querySelector('.item').cloneNode(true);
+    probe.classList.remove('out-up', 'out-down');
+    probe.style.cssText = 'position:static;visibility:hidden;transition:none;transform:none';
+    slot.appendChild(probe);
+    let tallest = 0;
+    items.forEach((_, n)=>{ render(probe, n); tallest = Math.max(tallest, probe.offsetHeight); });
+    probe.remove();
+    slot.style.minHeight = tallest + 'px';
+  }
+  fitSlot();
+  addEventListener('resize', fitSlot);
+  document.addEventListener('langchange', ()=>{
+    slot.querySelectorAll('.item').forEach(el=> render(el, i));
+    fitSlot();
+  });
   function move(step){
     const n = (i + step + items.length) % items.length;
     if (n === i) return;
@@ -1205,18 +1502,27 @@ let setLiquidEnabled = ()=>{};
 
 /* ---------------- clock ---------------- */
 (function clock(){
-  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const MONTHS = {
+    en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+    id: ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']
+  };
   const times = document.querySelectorAll('[data-clock-time]');
   const dates = document.querySelectorAll('[data-clock-date]');
   function tick(){
     const d = new Date();
-    const h = d.getHours() % 12 || 12;
+    const id = I18N.lang() === 'id';
     const m = String(d.getMinutes()).padStart(2, '0');
-    const mer = d.getHours() >= 12 ? 'pm' : 'am';
-    times.forEach(n=> n.textContent = h + ':' + m + mer);
-    dates.forEach(n=> n.textContent = d.getDate() + ' ' + MONTHS[d.getMonth()] + ', ' + d.getFullYear());
+    const time = id
+      ? String(d.getHours()).padStart(2, '0') + '.' + m                       // 21.41
+      : (d.getHours() % 12 || 12) + ':' + m + (d.getHours() >= 12 ? 'pm' : 'am');
+    const month = MONTHS[id ? 'id' : 'en'][d.getMonth()];
+    const date = id ? d.getDate() + ' ' + month + ' ' + d.getFullYear()      // 14 Oktober 2026
+                    : d.getDate() + ' ' + month + ', ' + d.getFullYear();
+    times.forEach(n=> n.textContent = time);
+    dates.forEach(n=> n.textContent = date);
   }
   tick(); setInterval(tick, 1000);
+  document.addEventListener('langchange', tick);
 })();
 
 /* ---------------- hovers ---------------- */
@@ -1278,7 +1584,7 @@ document.querySelectorAll('.alink').forEach(a=>{
 
 /* ---------------- stats count-up ---------------- */
 (function stats(){
-  const nodes = [...document.querySelectorAll('[data-count]')].map(n=>({ n, v: +n.dataset.count }));
+  const nodes = [...document.querySelectorAll('[data-count]')].map(n=>({ n, v: +n.dataset.count, suf: n.dataset.suffix ? '×' : '' }));
   if (!nodes.length) return;
   let t = 0;
   function update(){
@@ -1286,14 +1592,15 @@ document.querySelectorAll('.alink').forEach(a=>{
     if (now - t < 30) return;
     t = now;
     const vh = window.innerHeight;
-    nodes.forEach(({ n, v })=>{
+    nodes.forEach(({ n, v, suf })=>{
       const r = n.getBoundingClientRect();
       const start = vh, end = vh/2 - r.height/2;
       const p = Math.min(Math.max((start - r.top) / (start - end), 0), 1);
-      n.textContent = Math.round(p * v).toLocaleString('en-US');
+      n.textContent = Math.round(p * v).toLocaleString(I18N.lang() === 'id' ? 'id-ID' : 'en-US') + suf;
     });
   }
   update();
+  document.addEventListener('langchange', ()=>{ t = 0; update(); });
   addEventListener('scroll', update, { passive: true });
   addEventListener('resize', update);
   lenis.on('scroll', update);
@@ -1336,7 +1643,7 @@ function closeModal(){
     setTimeout(()=>{
       formState.hidden = false; okState.hidden = true;
       modal.querySelector('form').reset();
-      modal.querySelector('.frow .lbl').textContent = 'Send request';
+      modal.querySelector('.frow .lbl').textContent = I18N.t('m.send');
     }, 300);
   }, 400);
 }
@@ -1375,11 +1682,11 @@ modal.querySelector('form').addEventListener('submit', async e=>{
     formState.hidden = true; okState.hidden = false; return;
   }
   if (!d.name || !d.email || !d.project){
-    lbl.textContent = 'Fill every field';
-    setTimeout(()=> lbl.textContent = 'Send request', 1600);
+    lbl.textContent = I18N.t('m.fill');
+    setTimeout(()=> lbl.textContent = I18N.t('m.send'), 1600);
     return;
   }
-  lbl.textContent = 'Sending…';
+  lbl.textContent = I18N.t('m.sending');
   if (btn) btn.disabled = true;
 
   let delivered = false;
@@ -1404,7 +1711,7 @@ modal.querySelector('form').addEventListener('submit', async e=>{
     formState.hidden = true; okState.hidden = false;
   } else {
     // nothing was sent — hand the message to the visitor's mail client
-    lbl.textContent = 'Send request';
+    lbl.textContent = I18N.t('m.send');
     mailtoFallback(d);
   }
 });
@@ -1416,11 +1723,12 @@ modal.querySelector('form').addEventListener('submit', async e=>{
   const apply = (t, persist)=>{
     document.documentElement.dataset.theme = t;
     if (meta) meta.setAttribute('content', t === 'light' ? '#f5f3ef' : '#0a0a0a');
-    if (btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
-    setLiquidEnabled(t !== 'light');          // cursor reveal is a dark-theme behaviour
+    if (btn) btn.setAttribute('aria-label', I18N.t(t === 'light' ? 'a.toDark' : 'a.toLight'));
+    setLiquidEnabled(true);                   // the cursor reveal works in both themes
     if (persist){ try{ localStorage.setItem('theme', t); }catch(e){} }
   };
   apply(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark', false);
+  document.addEventListener('langchange', ()=> apply(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark', false));
   if (btn) btn.addEventListener('click', ()=>{
     apply(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light', true);
   });
