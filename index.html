@@ -418,28 +418,72 @@ body.ready #header{opacity:1;transform:none}
 #pricing{background:var(--bg)}
 #pricing .in{padding:0 1.25rem 5rem}
 #pricing h2{margin:1.25rem 0 1rem;max-width:18ch;font-size:2.25rem;font-weight:600;letter-spacing:-.02em}
-#pricing .lede{max-width:40rem;font-size:.9375rem;line-height:1.55;color:rgba(17,17,17,.6);margin-bottom:3rem}
+#pricing .lede{max-width:40rem;font-size:.9375rem;line-height:1.55;color:rgba(17,17,17,.6)}
+/* founding-client ribbon: the one honest, limited offer on the page */
+.founding{margin-top:2rem;display:flex;align-items:flex-start;gap:.875rem;border-radius:var(--radius-card-sm);padding:1rem 1.25rem;color:#fff;
+  background:linear-gradient(to bottom right,var(--accent-from),var(--accent-to))}
+.founding .ic{font-size:1.25rem;flex:none;margin-top:.1rem}
+.founding b{font-weight:600}
+.founding span{font-size:.875rem;line-height:1.5}
+/* the usual path: audit -> build -> care */
+.journey{margin:2rem 0 1.25rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;font-size:.8125rem;color:rgba(17,17,17,.6)}
+.journey .jl{font-weight:500;color:rgba(17,17,17,.45);margin-right:.25rem}
+.journey .st{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:9999px;padding:.375rem .875rem .375rem .375rem;color:var(--fg)}
+.journey .st i{font-style:normal;width:1.375rem;height:1.375rem;display:grid;place-items:center;border-radius:9999px;background:var(--ink);color:#fff;font-size:.6875rem;font-weight:600}
+.journey .ar{color:rgba(17,17,17,.3)}
 .plans{display:grid;grid-template-columns:1fr;gap:1rem}
-.plan{position:relative;display:flex;flex-direction:column;gap:1.25rem;border:1px solid var(--line);border-radius:var(--radius-card-sm);
+.plan{position:relative;display:flex;flex-direction:column;gap:1.125rem;border:1px solid var(--line);border-radius:var(--radius-card-sm);
   background:var(--bg);padding:1.75rem 1.5rem}
-.plan.feat{background:var(--ink);color:#fff;border-color:var(--ink)}
-.plan .pk{display:flex;align-items:center;justify-content:space-between;gap:.75rem;font-size:.875rem;font-weight:600;letter-spacing:-.01em}
+.plan.feat{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 20px 40px -24px rgba(10,10,10,.55)}
+.plan .pk{display:flex;align-items:center;justify-content:space-between;gap:.75rem;font-size:1rem;font-weight:600;letter-spacing:-.01em}
 .plan .flag{font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#fff;border-radius:9999px;white-space:nowrap;
   padding:.3rem .6rem;background:linear-gradient(to bottom right,var(--accent-from),var(--accent-to))}
+.plan .for{font-size:.8125rem;line-height:1.45;color:rgba(17,17,17,.55)}
+.plan .for b{font-weight:600;color:var(--fg)}
 .plan .pr{display:flex;align-items:baseline;gap:.375rem;flex-wrap:wrap}
 .plan .from,.plan .per{font-size:.8125rem;color:rgba(17,17,17,.55)}
+.plan .was{font-size:1rem;color:rgba(17,17,17,.4);text-decoration-thickness:1.5px}
 .plan .amt{font-size:2.5rem;font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.plan .rate{width:100%;font-size:.75rem;font-weight:500;color:var(--accent)}
 .plan .pd{font-size:.875rem;line-height:1.5;color:rgba(17,17,17,.62)}
-.plan ul{display:flex;flex-direction:column;gap:.5rem;border-top:1px solid var(--line);padding-top:1.25rem;flex:1}
-.plan li{position:relative;padding-left:1.25rem;font-size:.8125rem;line-height:1.45;color:rgba(17,17,17,.75)}
-.plan li::before{content:"";position:absolute;left:0;top:.45em;width:.4rem;height:.4rem;border-radius:9999px;background:var(--accent)}
-.plan.feat .from,.plan.feat .per{color:rgba(255,255,255,.55)}
+.plan ul{display:flex;flex-direction:column;gap:.5rem;border-top:1px solid var(--line);padding-top:1.125rem;flex:1}
+.plan li{position:relative;padding-left:1.375rem;font-size:.8125rem;line-height:1.45;color:rgba(17,17,17,.75)}
+.plan li::before{content:"";position:absolute;left:.15rem;top:.2em;width:.375rem;height:.7rem;border:solid var(--accent);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.plan li.pay{font-weight:600;color:var(--fg)}
+.plan .proof{display:inline-flex;align-items:center;gap:.375rem;font-size:.8125rem;font-weight:500;color:var(--accent);
+  text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.plan .proof .ic{font-size:.75rem}
+.plan .proof.none{visibility:hidden}
+.plan.feat .for,.plan.feat .from,.plan.feat .per{color:rgba(255,255,255,.55)}
+.plan.feat .for b{color:#fff}
+.plan.feat .was{color:rgba(255,255,255,.4)}
+.plan.feat .rate,.plan.feat .proof{color:var(--accent-from)}
 .plan.feat .pd{color:rgba(255,255,255,.65)}
 .plan.feat ul{border-top-color:rgba(255,255,255,.12)}
 .plan.feat li{color:rgba(255,255,255,.8)}
-.plan.feat li::before{background:var(--accent-from)}
-.plan .pill{align-self:flex-start}
+.plan.feat li.pay{color:#fff}
+.plan.feat li::before{border-color:var(--accent-from)}
+.plan .pill{align-self:stretch}
+.plan .pill .pin{justify-content:space-between}
+/* Care Plan: an add-on after handover, so a strip, not a fourth column */
+.care{margin-top:1rem;display:flex;flex-direction:column;gap:1rem;border:1px dashed var(--subtle);border-radius:var(--radius-card-sm);padding:1.5rem}
+.care .ct{display:flex;flex-direction:column;gap:.375rem}
+.care .k{font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:rgba(17,17,17,.45)}
+.care h3{font-size:1.125rem;font-weight:600;letter-spacing:-.01em}
+.care h3 .amt{font-variant-numeric:tabular-nums}
+.care h3 .per{font-size:.8125rem;font-weight:400;color:rgba(17,17,17,.55)}
+.care p{font-size:.875rem;line-height:1.5;color:rgba(17,17,17,.62);max-width:40rem}
+/* objections a remote client has before paying a stranger */
+.faq{margin-top:3rem;display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.125rem 0;font-size:1rem;font-weight:500}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.25rem;font-weight:400;color:rgba(17,17,17,.45);transition:transform .25s var(--e-soft)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 1.25rem;max-width:44rem;font-size:.875rem;line-height:1.6;color:rgba(17,17,17,.62)}
 .pnote{margin-top:1.5rem;font-size:.8125rem;line-height:1.5;color:rgba(17,17,17,.55);max-width:44rem}
+/* phones: the recommended plan comes first */
+@media (max-width:639px){.plan.feat{order:-1}.journey .ar{display:none}}
 
 /* ---------- stats ---------- */
 #numbers{background:var(--bg)}
@@ -554,8 +598,9 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   #numbers .in{padding-left:2rem;padding-right:2rem}
   #pricing .in{padding-left:2rem;padding-right:2rem}
   #pricing h2{font-size:3rem}
-  .plans{grid-template-columns:repeat(2,1fr)}
   .plan{padding:2rem 1.75rem}
+  .care{flex-direction:row;align-items:center;justify-content:space-between;padding:1.5rem 1.75rem}
+  .care .pill{flex:none}
   .statpanel{padding:4rem 2rem}
   .statgrid .n{font-size:3.75rem}
   footer .in{padding-left:2rem;padding-right:2rem}
@@ -593,7 +638,8 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   .srow p{display:block}
   #numbers .in{padding-bottom:7rem}
   #pricing .in{padding-bottom:7rem}
-  .plans{grid-template-columns:repeat(4,1fr)}
+  .plans{grid-template-columns:repeat(3,1fr);align-items:stretch}
+  .faq{grid-template-columns:1fr 1fr;column-gap:3rem}
   .statgrid{grid-template-columns:repeat(4,1fr)}
   footer .in{padding-top:6rem}
   .fcta{flex-direction:row;align-items:flex-end;justify-content:space-between}
@@ -879,45 +925,69 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   <div class="shell in">
     <p class="eyebrow rv" data-i18n="pr.eyebrow">Packages &amp; pricing</p>
     <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms" data-i18n="pr.title">Fixed scope, fixed price.</i></span></h2>
-    <p class="lede rv" style="--d:180ms;--ty:12px" data-i18n="pr.lede">You know the cost before any work starts. Every package ends with a handover your team can run without me, and the Care Plan is there if you'd rather not.</p>
+    <p class="lede rv" style="--d:180ms;--ty:12px" data-i18n="pr.lede">You know the cost before any work starts, and you pay the second half only once it works. Every project ends with a handover your team can run without me.</p>
+    <p class="founding rv" style="--d:220ms;--ty:12px"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><span data-i18n="pr.found"><b>Founding client rate: 20% off my next 3 client projects.</b> In exchange, I ask for a short review and permission to feature the work as a case study.</span></p>
+    <p class="journey rv" style="--d:260ms;--ty:10px">
+      <span class="jl" data-i18n="pr.j">How most projects go</span>
+      <span class="st"><i>1</i><span data-i18n="pr.j1">Audit, find the hours</span></span><span class="ar" aria-hidden="true">&rarr;</span>
+      <span class="st"><i>2</i><span data-i18n="pr.j2">Build, automate them</span></span><span class="ar" aria-hidden="true">&rarr;</span>
+      <span class="st"><i>3</i><span data-i18n="pr.j3">Care, keep it running</span></span>
+    </p>
     <ul class="plans">
       <li class="plan rv" style="--d:0ms;--ty:24px">
         <div class="pk"><span data-i18n="pr.a.t">Automation Audit</span></div>
-        <div class="pr"><span class="amt">$250</span><span class="per" data-i18n="pr.a.per">one-time</span></div>
-        <p class="pd" data-i18n="pr.a.d">A paid first step. We map where your team loses hours, and you keep the map whether we work together or not.</p>
+        <p class="for" data-i18n="pr.a.for"><b>Best for</b> teams who know they lose hours but not where.</p>
+        <div class="pr"><span class="sr-only" data-i18n="pr.wasl">Regular price</span><s class="was">$250</s><span class="amt">$200</span><span class="per" data-i18n="pr.a.per">one-time</span><span class="rate" data-i18n="pr.rate">Founding client rate</span></div>
+        <p class="pd" data-i18n="pr.a.d">A paid first step. We map where your team loses time, and you keep the map whether we work together or not.</p>
         <ul><li data-i18n="pr.a.1">One 60–90 minute call about your workflow</li><li data-i18n="pr.a.2">A written map of the 3 automations worth building first, with hours saved per month, within 3 business days</li><li data-i18n="pr.a.3">A fixed quote for the first build</li><li data-i18n="pr.a.4">Fully credited if you go ahead with a Build</li></ul>
-        <span class="pill dark arw" data-modal data-plan role="button" tabindex="0">
-          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        
+        <span class="pill dark arw" data-modal data-plan="pr.a.t" role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.a.cta">Book the audit</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
         </span>
       </li>
       <li class="plan feat rv" style="--d:80ms;--ty:24px">
         <div class="pk"><span data-i18n="pr.b.t">Workflow Build</span><span class="flag" data-i18n="pr.flag">Most common</span></div>
-        <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="amt">$1,200</span></div>
+        <p class="for" data-i18n="pr.b.for"><b>Best for</b> teams that type the same data into several places every week.</p>
+        <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="sr-only" data-i18n="pr.wasl">Regular price</span><s class="was">$1,200</s><span class="amt">$960</span><span class="rate" data-i18n="pr.rate">Founding client rate</span></div>
         <p class="pd" data-i18n="pr.b.d">One workflow automated end to end, like logging work once and getting three reports out of it.</p>
-        <ul><li data-i18n="pr.b.1">Scope and out-of-scope written down before any code</li><li data-i18n="pr.b.2">First working version in 1 week, done in 2, tested on data shaped like yours</li><li data-i18n="pr.b.3">Handover document and a recorded walkthrough</li><li data-i18n="pr.b.4">14 days of fixes after launch</li></ul>
-        <span class="pill light arw" data-modal data-plan role="button" tabindex="0">
-          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        <ul><li data-i18n="pr.b.1">Scope and out-of-scope written down before any code</li><li data-i18n="pr.b.2">First working version in 1 week, done in 2, tested on data shaped like yours</li><li data-i18n="pr.b.3">Handover document and a recorded walkthrough</li><li data-i18n="pr.b.4">14 days of fixes after launch</li><li class="pay" data-i18n="pr.pay">Pay 50% to start, 50% once it runs on your data</li></ul>
+        <a class="proof" href="https://workline-demo.vercel.app/" target="_blank" rel="noopener"><span data-i18n="pr.b.proof">See a live example: Workline</span><svg class="ic"><use href="#i-arrow-ur"/></svg></a>
+        <span class="pill light arw" data-modal data-plan="pr.b.t" role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.b.cta">Start a build</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
         </span>
       </li>
       <li class="plan rv" style="--d:160ms;--ty:24px">
         <div class="pk"><span data-i18n="pr.c.t">Agent System or Dashboard</span></div>
-        <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="amt">$3,500</span></div>
+        <p class="for" data-i18n="pr.c.for"><b>Best for</b> decisions that need several sources, and numbers someone must sign off.</p>
+        <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="sr-only" data-i18n="pr.wasl">Regular price</span><s class="was">$3,500</s><span class="amt">$2,800</span><span class="rate" data-i18n="pr.rate">Founding client rate</span></div>
         <p class="pd" data-i18n="pr.c.d">A multi-agent system or an internal dashboard, with every number computed by code you can audit.</p>
-        <ul><li data-i18n="pr.c.1">AI writes and judges, scripts compute the figures</li><li data-i18n="pr.c.2">A runbook for when something breaks</li><li data-i18n="pr.c.3">Working demo in 2 weeks, done in 3–4, with weekly check-ins</li><li data-i18n="pr.c.4">30 days of fixes after launch</li></ul>
-        <span class="pill dark arw" data-modal data-plan role="button" tabindex="0">
-          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
-        </span>
-      </li>
-      <li class="plan rv" style="--d:240ms;--ty:24px">
-        <div class="pk"><span data-i18n="pr.d.t">Care Plan</span></div>
-        <div class="pr"><span class="amt">$300</span><span class="per" data-i18n="pr.d.per">/ month</span></div>
-        <p class="pd" data-i18n="pr.d.d">Keeps what we built running after handover, for any Build or System.</p>
-        <ul><li data-i18n="pr.d.1">Monitoring and a monthly health check</li><li data-i18n="pr.d.2">Small fixes and changes, up to 4 hours a month</li><li data-i18n="pr.d.3">Reply within one business day</li><li data-i18n="pr.d.4">Cancel any month</li></ul>
-        <span class="pill dark arw" data-modal data-plan role="button" tabindex="0">
-          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        <ul><li data-i18n="pr.c.1">AI writes and judges, scripts compute the figures</li><li data-i18n="pr.c.2">A runbook for when something breaks</li><li data-i18n="pr.c.3">Working demo in 2 weeks, done in 3–4, with weekly check-ins</li><li data-i18n="pr.c.4">30 days of fixes after launch</li><li class="pay" data-i18n="pr.pay">Pay 50% to start, 50% once it runs on your data</li></ul>
+        <a class="proof" href="https://oracle-architecture.vercel.app/" target="_blank" rel="noopener"><span data-i18n="pr.c.proof">See a live example: ORACLE</span><svg class="ic"><use href="#i-arrow-ur"/></svg></a>
+        <span class="pill dark arw" data-modal data-plan="pr.c.t" role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.c.cta">Scope a system</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
         </span>
       </li>
     </ul>
+    <div class="care rv" style="--ty:16px">
+      <div class="ct">
+        <span class="k" data-i18n="pr.d.k">Add-on after handover</span>
+        <h3><span data-i18n="pr.d.t">Care Plan</span> &middot; <span class="amt">$300</span> <span class="per" data-i18n="pr.d.per">/ month</span></h3>
+        <p data-i18n="pr.d.d">Monitoring, a monthly health check, and small fixes or changes up to 4 hours a month. Reply within one business day. Cancel any month.</p>
+      </div>
+      <span class="pill outline arw" data-modal data-plan="pr.d.t" role="button" tabindex="0">
+        <span class="pin"><span data-i18n="pr.d.cta">Add care</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+      </span>
+    </div>
+    <div class="faq rv" style="--ty:12px">
+      <details><summary data-i18n="pr.q1">Different time zone. Does that slow things down?</summary>
+        <p data-i18n="pr.a1">I'm in Indonesia (UTC+8) and work in English. Progress updates come as written notes or short screen recordings, so you can catch up whenever suits you. For live calls I'm free at lunchtime (12:00–13:00 UTC+8), on weekday evenings (19:00–22:00 UTC+8) and at weekends. Messages get a reply within one business day.</p></details>
+      <details><summary data-i18n="pr.q2">Who owns the code?</summary>
+        <p data-i18n="pr.a2">You do. Everything runs in your own accounts, with the source and the handover document. Nothing is locked to me.</p></details>
+      <details><summary data-i18n="pr.q3">How do I pay?</summary>
+        <p data-i18n="pr.a3">By Wise transfer straight to my bank account, by PayPal invoice, or through Upwork if you prefer its payment protection. Builds and systems are split 50/50, half to start and half once it runs on your data. The audit is paid up front.</p></details>
+      <details><summary data-i18n="pr.q4">What if it breaks after handover?</summary>
+        <p data-i18n="pr.a4">Fixes are free for 14 days after a Build and 30 days after a System. After that, the runbook covers the common problems, and the Care Plan covers the rest.</p></details>
+    </div>
     <p class="pnote rv" style="--ty:10px" data-i18n="pr.note">Prices in USD. Software and API costs (hosting, model usage) are billed at cost and agreed up front. Not sure which fits? Start with the Audit.</p>
   </div>
 </section>
@@ -1147,36 +1217,57 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
  "nav.pricing": "Harga",
  "pr.eyebrow": "Paket &amp; harga",
  "pr.title": "Lingkup tetap, harga tetap.",
- "pr.lede": "Anda tahu biayanya sebelum pekerjaan dimulai. Setiap paket diakhiri serah terima yang bisa dijalankan tim Anda tanpa saya, dan Care Plan tersedia kalau Anda tidak mau repot.",
+ "pr.lede": "Anda tahu biayanya sebelum pekerjaan dimulai, dan separuh kedua baru dibayar setelah sistemnya bekerja. Setiap proyek diakhiri serah terima yang bisa dijalankan tim Anda tanpa saya.",
+ "pr.found": "<b>Harga klien perintis: diskon 20% untuk 3 proyek klien berikutnya.</b> Sebagai gantinya, saya minta ulasan singkat dan izin menampilkan hasilnya sebagai studi kasus.",
+ "pr.j": "Alur sebagian besar proyek",
+ "pr.j1": "Audit, temukan jamnya",
+ "pr.j2": "Build, otomasikan",
+ "pr.j3": "Care, jaga tetap jalan",
  "pr.from": "mulai",
  "pr.flag": "Paling sering",
- "pr.cta": "Pilih paket ini",
+ "pr.wasl": "Harga normal",
+ "pr.rate": "Harga klien perintis",
+ "pr.pay": "Bayar 50% di awal, 50% setelah berjalan di data Anda",
  "pr.a.t": "Audit Otomasi",
+ "pr.a.for": "<b>Cocok untuk</b> tim yang tahu kehilangan jam kerja tapi belum tahu di mana.",
  "pr.a.per": "sekali bayar",
- "pr.a.d": "Langkah pertama berbayar. Kita petakan di mana tim Anda kehilangan jam kerja, dan petanya milik Anda entah kita lanjut bekerja sama atau tidak.",
+ "pr.a.d": "Langkah pertama berbayar. Kita petakan di mana tim Anda kehilangan waktu, dan petanya milik Anda entah kita lanjut bekerja sama atau tidak.",
  "pr.a.1": "Satu panggilan 60–90 menit tentang alur kerja Anda",
  "pr.a.2": "Peta tertulis 3 otomasi yang paling layak dibangun dulu, dengan jam yang dihemat per bulan, dalam 3 hari kerja",
  "pr.a.3": "Penawaran harga tetap untuk build pertama",
  "pr.a.4": "Dipotong penuh dari biaya Build bila Anda lanjut",
+ "pr.a.cta": "Pesan audit",
  "pr.b.t": "Workflow Build",
+ "pr.b.for": "<b>Cocok untuk</b> tim yang mengetik data yang sama ke beberapa tempat setiap minggu.",
  "pr.b.d": "Satu alur kerja diotomasi dari awal sampai akhir, misalnya mencatat pekerjaan sekali lalu tiga laporan jadi sendiri.",
  "pr.b.1": "Lingkup dan yang di luar lingkup ditulis sebelum kode apa pun",
  "pr.b.2": "Versi pertama yang berjalan dalam 1 minggu, selesai dalam 2, diuji dengan data yang mirip milik Anda",
  "pr.b.3": "Dokumen serah terima dan video panduan",
  "pr.b.4": "14 hari perbaikan setelah rilis",
+ "pr.b.proof": "Lihat contoh live: Workline",
+ "pr.b.cta": "Mulai build",
  "pr.c.t": "Sistem Agen atau Dasbor",
+ "pr.c.for": "<b>Cocok untuk</b> keputusan yang butuh banyak sumber, dengan angka yang harus dipertanggungjawabkan.",
  "pr.c.d": "Sistem multi-agen atau dasbor internal, dengan setiap angka dihitung oleh kode yang bisa diaudit.",
  "pr.c.1": "AI menulis dan menilai, skrip yang menghitung angkanya",
  "pr.c.2": "Runbook untuk saat ada yang rusak",
  "pr.c.3": "Demo berjalan dalam 2 minggu, selesai dalam 3–4, dengan pembaruan mingguan",
  "pr.c.4": "30 hari perbaikan setelah rilis",
+ "pr.c.proof": "Lihat contoh live: ORACLE",
+ "pr.c.cta": "Rancang sistem",
+ "pr.d.k": "Tambahan setelah serah terima",
  "pr.d.t": "Care Plan",
  "pr.d.per": "/ bulan",
- "pr.d.d": "Menjaga yang sudah dibangun tetap berjalan setelah serah terima, untuk Build maupun Sistem.",
- "pr.d.1": "Pemantauan dan cek kesehatan bulanan",
- "pr.d.2": "Perbaikan dan perubahan kecil, hingga 4 jam per bulan",
- "pr.d.3": "Balasan dalam satu hari kerja",
- "pr.d.4": "Bisa berhenti kapan saja per bulan",
+ "pr.d.d": "Pemantauan, cek kesehatan bulanan, serta perbaikan atau perubahan kecil hingga 4 jam per bulan. Balasan dalam satu hari kerja. Bisa berhenti kapan saja per bulan.",
+ "pr.d.cta": "Tambah care",
+ "pr.q1": "Beda zona waktu. Apakah itu memperlambat?",
+ "pr.a1": "Saya di Indonesia (UTC+8) dan bekerja dalam bahasa Inggris. Kabar perkembangan dikirim berupa catatan tertulis atau rekaman layar singkat, jadi bisa Anda baca kapan pun sempat. Untuk panggilan langsung, saya bisa saat jam makan siang (12.00–13.00 UTC+8), malam hari kerja (19.00–22.00 UTC+8), dan akhir pekan. Pesan dibalas dalam satu hari kerja.",
+ "pr.q2": "Siapa pemilik kodenya?",
+ "pr.a2": "Anda. Semuanya berjalan di akun Anda sendiri, lengkap dengan kode sumber dan dokumen serah terima. Tidak ada yang terkunci ke saya.",
+ "pr.q3": "Bagaimana cara membayar?",
+ "pr.a3": "Lewat transfer Wise langsung ke rekening bank saya, tagihan PayPal, atau lewat Upwork kalau Anda ingin perlindungan pembayarannya. Build dan sistem dibagi 50/50, separuh di awal dan separuh setelah berjalan di data Anda. Audit dibayar di muka.",
+ "pr.q4": "Bagaimana kalau rusak setelah serah terima?",
+ "pr.a4": "Perbaikan gratis selama 14 hari setelah Build dan 30 hari setelah Sistem. Sesudah itu, runbook membahas masalah yang umum, dan Care Plan menangani sisanya.",
  "pr.note": "Harga dalam USD. Biaya perangkat lunak dan API (hosting, pemakaian model) ditagih sesuai biaya aktual dan disepakati di awal. Belum yakin mana yang cocok? Mulai dari Audit.",
  "m.plan": "Saya tertarik dengan paket",
  "num.eyebrow": "Dalam angka",
@@ -1872,7 +1963,7 @@ function activate(el){
   if (el.hasAttribute('data-modal')){
     const msg = document.getElementById('f-msg');
     if (el.hasAttribute('data-plan') && msg && !msg.value.trim()){
-      const name = el.closest('.plan').querySelector('.pk [data-i18n]').textContent;
+      const name = I18N.t(el.getAttribute('data-plan'));
       msg.value = I18N.t('m.plan') + ' ' + name + (I18N.lang() === 'id' ? '. ' : ' package. ');
     }
     if (!navmenu.hidden) closeMenu();
