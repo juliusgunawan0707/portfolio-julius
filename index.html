@@ -450,14 +450,17 @@ body.ready #header{opacity:1;transform:none}
 .plan li{position:relative;padding-left:1.375rem;font-size:.8125rem;line-height:1.45;color:rgba(17,17,17,.75)}
 .plan li::before{content:"";position:absolute;left:.15rem;top:.2em;width:.375rem;height:.7rem;border:solid var(--accent);border-width:0 2px 2px 0;transform:rotate(45deg)}
 .plan li.pay{font-weight:600;color:var(--fg)}
-.plan .proof{display:inline-flex;align-items:center;gap:.375rem;font-size:.8125rem;font-weight:500;color:var(--accent);
+.plan .proof{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .5rem;font-size:.8125rem;color:rgba(17,17,17,.55)}
+.plan .proof a{display:inline-flex;align-items:center;gap:.25rem;font-weight:500;color:var(--accent);
   text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 .plan .proof .ic{font-size:.75rem}
-.plan .proof.none{visibility:hidden}
+.plan .proof .sep{color:rgba(17,17,17,.3)}
+.plan.feat .proof{color:rgba(255,255,255,.55)}
+.plan.feat .proof .sep{color:rgba(255,255,255,.3)}
 .plan.feat .for,.plan.feat .from,.plan.feat .per{color:rgba(255,255,255,.55)}
 .plan.feat .for b{color:#fff}
 .plan.feat .was{color:rgba(255,255,255,.4)}
-.plan.feat .rate,.plan.feat .proof{color:var(--accent-from)}
+.plan.feat .rate,.plan.feat .proof a{color:var(--accent-from)}
 .plan.feat .pd{color:rgba(255,255,255,.65)}
 .plan.feat ul{border-top-color:rgba(255,255,255,.12)}
 .plan.feat li{color:rgba(255,255,255,.8)}
@@ -483,7 +486,20 @@ body.ready #header{opacity:1;transform:none}
 .faq details p{padding:0 0 1.25rem;max-width:44rem;font-size:.875rem;line-height:1.6;color:rgba(17,17,17,.62)}
 .pnote{margin-top:1.5rem;font-size:.8125rem;line-height:1.5;color:rgba(17,17,17,.55);max-width:44rem}
 /* phones: the recommended plan comes first */
-@media (max-width:639px){.plan.feat{order:-1}.journey .ar{display:none}}
+.swipehint,.plandots{display:none}
+/* phones: the plans become a sideways swipe, with the next card peeking in at the edge.
+   Laptops keep the grid, because comparing plans side by side is the point of the section. */
+@media (max-width:639px){
+  .journey .ar{display:none}
+  .swipehint{display:block;margin-bottom:.75rem;font-size:.75rem;font-weight:500;color:rgba(17,17,17,.45)}
+  .plans{position:relative;display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin-inline:-1.25rem;padding:.25rem 1.25rem 1.5rem;scroll-padding-inline:1.25rem;scrollbar-width:none}
+  .plans::-webkit-scrollbar{display:none}
+  .plan{flex:0 0 86%;scroll-snap-align:center}
+  .plandots{display:flex;justify-content:center;gap:.375rem;margin-top:-.5rem}
+  .plandots button{height:.375rem;width:.375rem;border-radius:9999px;background:var(--subtle);transition:width .3s,background-color .3s}
+  .plandots button.on{width:1.25rem;background:var(--fg)}
+}
 
 /* ---------- stats ---------- */
 #numbers{background:var(--bg)}
@@ -598,6 +614,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   #numbers .in{padding-left:2rem;padding-right:2rem}
   #pricing .in{padding-left:2rem;padding-right:2rem}
   #pricing h2{font-size:3rem}
+  .plans{grid-template-columns:repeat(2,1fr)}
   .plan{padding:2rem 1.75rem}
   .care{flex-direction:row;align-items:center;justify-content:space-between;padding:1.5rem 1.75rem}
   .care .pill{flex:none}
@@ -638,12 +655,17 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   .srow p{display:block}
   #numbers .in{padding-bottom:7rem}
   #pricing .in{padding-bottom:7rem}
-  .plans{grid-template-columns:repeat(3,1fr);align-items:stretch}
+  .plans{align-items:stretch}
   .faq{grid-template-columns:1fr 1fr;column-gap:3rem}
   .statgrid{grid-template-columns:repeat(4,1fr)}
   footer .in{padding-top:6rem}
   .fcta{flex-direction:row;align-items:flex-end;justify-content:space-between}
   .fcols{grid-template-columns:repeat(4,1fr)}
+}
+/* four plans in a row only where each card still has room; after the 640px rule so it wins */
+@media (min-width:1280px){
+  .plans{grid-template-columns:repeat(4,1fr)}
+  .plan{padding:1.75rem 1.5rem}
 }
 </style>
 </head>
@@ -933,7 +955,8 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
       <span class="st"><i>2</i><span data-i18n="pr.j2">Build, automate them</span></span><span class="ar" aria-hidden="true">&rarr;</span>
       <span class="st"><i>3</i><span data-i18n="pr.j3">Care, keep it running</span></span>
     </p>
-    <ul class="plans">
+    <p class="swipehint" data-i18n="pr.swipe">Swipe to compare</p>
+    <ul class="plans" data-lenis-prevent-touch>
       <li class="plan rv" style="--d:0ms;--ty:24px">
         <div class="pk"><span data-i18n="pr.a.t">Automation Audit</span></div>
         <p class="for" data-i18n="pr.a.for"><b>Best for</b> teams who know they lose hours but not where.</p>
@@ -951,23 +974,35 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="sr-only" data-i18n="pr.wasl">Regular price</span><s class="was">$1,200</s><span class="amt">$960</span><span class="rate" data-i18n="pr.rate">Founding client rate</span></div>
         <p class="pd" data-i18n="pr.b.d">One workflow automated end to end, like logging work once and getting three reports out of it.</p>
         <ul><li data-i18n="pr.b.1">Scope and out-of-scope written down before any code</li><li data-i18n="pr.b.2">First working version in 1 week, done in 2, tested on data shaped like yours</li><li data-i18n="pr.b.3">Handover document and a recorded walkthrough</li><li data-i18n="pr.b.4">14 days of fixes after launch</li><li class="pay" data-i18n="pr.pay">Pay 50% to start, 50% once it runs on your data</li></ul>
-        <a class="proof" href="https://workline-demo.vercel.app/" target="_blank" rel="noopener"><span data-i18n="pr.b.proof">See a live example: Workline</span><svg class="ic"><use href="#i-arrow-ur"/></svg></a>
+        <p class="proof"><span data-i18n="pr.ex">Live example</span> <a href="https://workline-demo.vercel.app/" target="_blank" rel="noopener">Workline<svg class="ic"><use href="#i-arrow-ur"/></svg></a></p>
         <span class="pill light arw" data-modal data-plan="pr.b.t" role="button" tabindex="0">
           <span class="pin"><span data-i18n="pr.b.cta">Start a build</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
         </span>
       </li>
       <li class="plan rv" style="--d:160ms;--ty:24px">
+        <div class="pk"><span data-i18n="pr.e.t">Website or 3D Experience</span></div>
+        <p class="for" data-i18n="pr.e.for"><b>Best for</b> launches, products and places people should explore, not just read about.</p>
+        <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="sr-only" data-i18n="pr.wasl">Regular price</span><s class="was">$1,800</s><span class="amt">$1,440</span><span class="rate" data-i18n="pr.rate">Founding client rate</span></div>
+        <p class="pd" data-i18n="pr.e.d">A fast website, or an interactive 3D scene that runs in the browser with nothing to install.</p>
+        <ul><li data-i18n="pr.e.1">Look and feel agreed on a mock-up before any build</li><li data-i18n="pr.e.2">First preview in 1 week, done in 3–4</li><li data-i18n="pr.e.3">Works on laptops and phones, hosted on your own account</li><li data-i18n="pr.e.4">14 days of fixes after launch</li><li class="pay" data-i18n="pr.e.pay">Pay 50% to start, 50% once the site is live</li></ul>
+        <p class="proof"><span data-i18n="pr.exs">Live examples</span> <a href="https://gbk-3d.vercel.app/" target="_blank" rel="noopener">GBK 3D<svg class="ic"><use href="#i-arrow-ur"/></svg></a><span class="sep" aria-hidden="true">&middot;</span><a href="https://nusantara-3d.vercel.app/" target="_blank" rel="noopener">Nusantara 3D<svg class="ic"><use href="#i-arrow-ur"/></svg></a></p>
+        <span class="pill dark arw" data-modal data-plan="pr.e.t" role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.e.cta">Plan a website</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        </span>
+      </li>
+      <li class="plan rv" style="--d:240ms;--ty:24px">
         <div class="pk"><span data-i18n="pr.c.t">Agent System or Dashboard</span></div>
         <p class="for" data-i18n="pr.c.for"><b>Best for</b> decisions that need several sources, and numbers someone must sign off.</p>
         <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="sr-only" data-i18n="pr.wasl">Regular price</span><s class="was">$3,500</s><span class="amt">$2,800</span><span class="rate" data-i18n="pr.rate">Founding client rate</span></div>
         <p class="pd" data-i18n="pr.c.d">A multi-agent system or an internal dashboard, with every number computed by code you can audit.</p>
         <ul><li data-i18n="pr.c.1">AI writes and judges, scripts compute the figures</li><li data-i18n="pr.c.2">A runbook for when something breaks</li><li data-i18n="pr.c.3">Working demo in 2 weeks, done in 3–4, with weekly check-ins</li><li data-i18n="pr.c.4">30 days of fixes after launch</li><li class="pay" data-i18n="pr.pay">Pay 50% to start, 50% once it runs on your data</li></ul>
-        <a class="proof" href="https://oracle-architecture.vercel.app/" target="_blank" rel="noopener"><span data-i18n="pr.c.proof">See a live example: ORACLE</span><svg class="ic"><use href="#i-arrow-ur"/></svg></a>
+        <p class="proof"><span data-i18n="pr.exs">Live examples</span> <a href="https://widura-architecture.vercel.app/" target="_blank" rel="noopener">WIDURA<svg class="ic"><use href="#i-arrow-ur"/></svg></a><span class="sep" aria-hidden="true">&middot;</span><a href="https://investment-monitor-demo.vercel.app/" target="_blank" rel="noopener">Investment Monitor<svg class="ic"><use href="#i-arrow-ur"/></svg></a></p>
         <span class="pill dark arw" data-modal data-plan="pr.c.t" role="button" tabindex="0">
           <span class="pin"><span data-i18n="pr.c.cta">Scope a system</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
         </span>
       </li>
     </ul>
+    <div class="plandots" aria-hidden="true"></div>
     <div class="care rv" style="--ty:16px">
       <div class="ct">
         <span class="k" data-i18n="pr.d.k">Add-on after handover</span>
@@ -1244,7 +1279,6 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
  "pr.b.2": "Versi pertama yang berjalan dalam 1 minggu, selesai dalam 2, diuji dengan data yang mirip milik Anda",
  "pr.b.3": "Dokumen serah terima dan video panduan",
  "pr.b.4": "14 hari perbaikan setelah rilis",
- "pr.b.proof": "Lihat contoh live: Workline",
  "pr.b.cta": "Mulai build",
  "pr.c.t": "Sistem Agen atau Dasbor",
  "pr.c.for": "<b>Cocok untuk</b> keputusan yang butuh banyak sumber, dengan angka yang harus dipertanggungjawabkan.",
@@ -1253,8 +1287,19 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
  "pr.c.2": "Runbook untuk saat ada yang rusak",
  "pr.c.3": "Demo berjalan dalam 2 minggu, selesai dalam 3–4, dengan pembaruan mingguan",
  "pr.c.4": "30 hari perbaikan setelah rilis",
- "pr.c.proof": "Lihat contoh live: ORACLE",
  "pr.c.cta": "Rancang sistem",
+ "pr.ex": "Contoh live",
+ "pr.swipe": "Geser untuk membandingkan",
+ "pr.exs": "Contoh live",
+ "pr.e.t": "Website atau Pengalaman 3D",
+ "pr.e.for": "<b>Cocok untuk</b> peluncuran, produk, dan tempat yang perlu dijelajahi, bukan sekadar dibaca.",
+ "pr.e.d": "Website yang cepat, atau adegan 3D interaktif yang berjalan di browser tanpa perlu instal apa pun.",
+ "pr.e.1": "Tampilan disepakati lewat mock-up sebelum mulai dibangun",
+ "pr.e.2": "Pratinjau pertama dalam 1 minggu, selesai dalam 3–4",
+ "pr.e.3": "Berjalan di laptop dan HP, di-hosting di akun Anda sendiri",
+ "pr.e.4": "14 hari perbaikan setelah rilis",
+ "pr.e.pay": "Bayar 50% di awal, 50% setelah situs tayang",
+ "pr.e.cta": "Rencanakan website",
  "pr.d.k": "Tambahan setelah serah terima",
  "pr.d.t": "Care Plan",
  "pr.d.per": "/ bulan",
@@ -1828,6 +1873,37 @@ document.querySelectorAll('.alink').forEach(a=>{
   addEventListener('scroll', update, { passive: true });
   addEventListener('resize', update);
   lenis.on('scroll', update);
+})();
+
+/* ---------------- pricing swipe (phones) ---------------- */
+(function planSwipe(){
+  const track = document.querySelector('.plans');
+  const dotsEl = document.querySelector('.plandots');
+  if (!track || !dotsEl) return;
+  const cards = [...track.children];
+  const phone = window.matchMedia('(max-width:639px)');
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const dots = cards.map((c, k)=>{
+    const b = document.createElement('button');
+    b.type = 'button'; b.tabIndex = -1;
+    b.addEventListener('click', ()=> go(k, still.matches ? 'auto' : 'smooth'));
+    dotsEl.appendChild(b);
+    return b;
+  });
+  const offsetOf = k => cards[k].offsetLeft - (track.clientWidth - cards[k].clientWidth) / 2;
+  function go(k, behavior){ track.scrollTo({ left: offsetOf(k), behavior }); }
+  function current(){
+    let best = 0, d = Infinity;
+    cards.forEach((c, k)=>{ const x = Math.abs(offsetOf(k) - track.scrollLeft); if (x < d){ d = x; best = k; } });
+    return best;
+  }
+  // four cards, so measuring on every scroll event is cheap
+  function mark(){ const k = current(); dots.forEach((b, n)=> b.classList.toggle('on', n === k)); }
+  track.addEventListener('scroll', mark, { passive: true });
+  const featured = Math.max(0, cards.findIndex(c=> c.classList.contains('feat')));
+  function setup(){ if (phone.matches){ go(featured, 'auto'); mark(); } }
+  setup();
+  phone.addEventListener('change', setup);
 })();
 
 /* ---------------- nav overlay ---------------- */
