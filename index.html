@@ -13,7 +13,7 @@ catch(e){document.documentElement.dataset.theme='dark';}</script>
 <meta property="og:title" content="Julius Gunawan — AI Automation Builder" />
 <meta property="og:description" content="Systems that decide, not dashboards that report." />
 <meta property="og:type" content="website" />
-<meta property="og:image" content="https://juliusgunawan0707.github.io/portfolio-julius/assets/hero-base.jpg" />
+<meta property="og:image" content="https://portfolio-julius-vert.vercel.app/assets/hero-base.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -160,7 +160,7 @@ img{display:block}
                background-color .32s ease,color .32s ease,border-color .32s ease,box-shadow .32s ease}
 
 /* theme crossfade - colour-only properties, restrained duration */
-body,#home,.vignette,.brand,#header nav button,.clock,.clock .lbl,.clock .t,.clock .sep,.menubtn,
+body,#home,.vignette,.brand,#header nav button,.clock,.clock .lbl,.clock .t,.menubtn,
 .rating .txt,.stack .lbl,.stack li>span,.stack .ic,.hcard .panel,.hcard .cap,.hcard .ttl,
 .hcard .navs button,#liquid img,#liquid canvas,#home .eyebrow.light,#home .eyebrow.light::before,
 #home .pill .pin,#home .pill .badge{
@@ -230,8 +230,6 @@ body.ready #header{opacity:1;transform:none}
        backdrop-filter:blur(4px);border-radius:.875rem;padding:.5rem .75rem;font-size:.75rem;color:var(--nav-text-dim)}
 .clock .lbl{color:var(--nav-text-mute)}
 .clock .t{min-width:3.5rem;font-variant-numeric:tabular-nums;font-weight:500;color:var(--nav-text)}
-.clock .sep{color:var(--nav-text-faint)}
-.clock .d{font-weight:500}
 .menubtn{border:1px solid var(--nav-chip-border);background:var(--nav-chip-bg);backdrop-filter:blur(4px);border-radius:.875rem;color:var(--nav-text)}
 .menubtn:hover{background:var(--nav-chip-bg-hover)}
 .menubtn>span{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;font-size:.75rem;font-weight:500;
@@ -299,7 +297,8 @@ body.ready #header{opacity:1;transform:none}
 [data-theme="light"] #home .pill.light .badge{background:#fff;color:var(--ink)}
 [data-theme="light"] #home .pill.outline-l .pin{border-color:rgba(23,20,18,.28);color:var(--hero-text)}
 
-/* hint that the portrait answers the cursor: pulsing ring on the face + a small label, gone after the first real move */
+/* hint that the portrait answers the cursor: pulsing ring on the face + a small label.
+   Gone on the first real move, back after IDLE_MS of stillness while the hero is on screen. */
 .lq-hint{position:absolute;z-index:21;left:var(--hx,50%);top:var(--hy,45%);width:0;height:0;pointer-events:none;
          opacity:0;transition:opacity .6s ease}
 .lq-hint.on{opacity:1}
@@ -415,6 +414,33 @@ body.ready #header{opacity:1;transform:none}
 .srow p{display:none;max-width:20rem;font-size:.875rem;color:rgba(17,17,17,.55)}
 .srow .sbadge{width:2.5rem;height:2.5rem;display:grid;place-items:center;border-radius:9999px;background:var(--ink);color:#fff;flex:none;will-change:transform}
 
+/* ---------- pricing ---------- */
+#pricing{background:var(--bg)}
+#pricing .in{padding:0 1.25rem 5rem}
+#pricing h2{margin:1.25rem 0 1rem;max-width:18ch;font-size:2.25rem;font-weight:600;letter-spacing:-.02em}
+#pricing .lede{max-width:40rem;font-size:.9375rem;line-height:1.55;color:rgba(17,17,17,.6);margin-bottom:3rem}
+.plans{display:grid;grid-template-columns:1fr;gap:1rem}
+.plan{position:relative;display:flex;flex-direction:column;gap:1.25rem;border:1px solid var(--line);border-radius:var(--radius-card-sm);
+  background:var(--bg);padding:1.75rem 1.5rem}
+.plan.feat{background:var(--ink);color:#fff;border-color:var(--ink)}
+.plan .pk{display:flex;align-items:center;justify-content:space-between;gap:.75rem;font-size:.875rem;font-weight:600;letter-spacing:-.01em}
+.plan .flag{font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#fff;border-radius:9999px;white-space:nowrap;
+  padding:.3rem .6rem;background:linear-gradient(to bottom right,var(--accent-from),var(--accent-to))}
+.plan .pr{display:flex;align-items:baseline;gap:.375rem;flex-wrap:wrap}
+.plan .from,.plan .per{font-size:.8125rem;color:rgba(17,17,17,.55)}
+.plan .amt{font-size:2.5rem;font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.plan .pd{font-size:.875rem;line-height:1.5;color:rgba(17,17,17,.62)}
+.plan ul{display:flex;flex-direction:column;gap:.5rem;border-top:1px solid var(--line);padding-top:1.25rem;flex:1}
+.plan li{position:relative;padding-left:1.25rem;font-size:.8125rem;line-height:1.45;color:rgba(17,17,17,.75)}
+.plan li::before{content:"";position:absolute;left:0;top:.45em;width:.4rem;height:.4rem;border-radius:9999px;background:var(--accent)}
+.plan.feat .from,.plan.feat .per{color:rgba(255,255,255,.55)}
+.plan.feat .pd{color:rgba(255,255,255,.65)}
+.plan.feat ul{border-top-color:rgba(255,255,255,.12)}
+.plan.feat li{color:rgba(255,255,255,.8)}
+.plan.feat li::before{background:var(--accent-from)}
+.plan .pill{align-self:flex-start}
+.pnote{margin-top:1.5rem;font-size:.8125rem;line-height:1.5;color:rgba(17,17,17,.55);max-width:44rem}
+
 /* ---------- stats ---------- */
 #numbers{background:var(--bg)}
 #numbers .in{padding:0 1.25rem 5rem}
@@ -526,6 +552,10 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   .srow h3{font-size:1.875rem}
   .srow .sbadge{width:3rem;height:3rem}
   #numbers .in{padding-left:2rem;padding-right:2rem}
+  #pricing .in{padding-left:2rem;padding-right:2rem}
+  #pricing h2{font-size:3rem}
+  .plans{grid-template-columns:repeat(2,1fr)}
+  .plan{padding:2rem 1.75rem}
   .statpanel{padding:4rem 2rem}
   .statgrid .n{font-size:3.75rem}
   footer .in{padding-left:2rem;padding-right:2rem}
@@ -562,6 +592,8 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   #services .in{padding-block:7rem}
   .srow p{display:block}
   #numbers .in{padding-bottom:7rem}
+  #pricing .in{padding-bottom:7rem}
+  .plans{grid-template-columns:repeat(4,1fr)}
   .statgrid{grid-template-columns:repeat(4,1fr)}
   footer .in{padding-top:6rem}
   .fcta{flex-direction:row;align-items:flex-end;justify-content:space-between}
@@ -610,6 +642,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <li><button data-scroll="home" aria-current="page"><span data-i18n="nav.home">Home</span></button></li>
         <li><button data-scroll="works"><span data-i18n="nav.work">Work</span></button></li>
         <li><button data-scroll="services"><span data-i18n="nav.services">Services</span><span class="caret">&#9662;</span></button></li>
+        <li><button data-scroll="pricing"><span data-i18n="nav.pricing">Pricing</span></button></li>
         <li><button data-scroll="about"><span data-i18n="nav.about">About</span></button></li>
         <li><button data-scroll="numbers"><span data-i18n="nav.numbers">Numbers</span></button></li>
         <li><button data-modal><span data-i18n="nav.contact">Contact</span></button></li>
@@ -619,8 +652,6 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
       <div class="clock">
         <span class="lbl" data-i18n="clock.lbl">Local time</span>
         <span class="t" data-clock-time>9:41am</span>
-        <span class="sep">&bull;</span>
-        <span class="d" data-clock-date>12 March, 2025</span>
       </div>
       <div class="langsw" role="group" aria-label="Language" data-i18n-attr="aria-label:a.lang">
         <button type="button" data-lang="en" class="on" aria-pressed="true" lang="en">EN</button>
@@ -700,7 +731,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
           <li><span><svg class="ic"><use href="#i-dot"/></svg>three.js</span></li>
           <li><span><svg class="ic"><use href="#i-dot"/></svg>Apps Script</span></li>
           <li><span><svg class="ic"><use href="#i-dot"/></svg>DeepSeek</span></li>
-          <li><span><svg class="ic"><use href="#i-dot"/></svg>Telegram</span></li>
+          <li><span><svg class="ic"><use href="#i-dot"/></svg>Claude Code</span></li>
           <li><span><svg class="ic"><use href="#i-dot"/></svg>Vercel</span></li>
         </ul>
       </div>
@@ -769,40 +800,40 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
       <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms" data-i18n="works.title">Selected work</i></span></h2>
     </div>
     <ul class="cards">
-      <li class="rv" style="--d:0ms;--ty:48px"><a href="https://juliusgunawan0707.github.io/workline/" target="_blank" rel="noopener">
+      <li class="rv" style="--d:0ms;--ty:48px"><a href="https://workline-demo.vercel.app/" target="_blank" rel="noopener">
         <article class="card">
           <div class="meta"><span data-i18n="w1.meta">Automation &mdash; 2026</span>
             <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
           <img class="bg" style="--pos:0% 0%" src="assets/work/workline.webp" width="960" height="900" loading="lazy" decoding="async" alt="Workline dashboard with the day’s checklist and SKP progress" data-i18n-attr="alt:w1.alt">
           <div class="body">
             <h3>Workline</h3>
-            <p data-i18n="w1.p">A work manager for public-sector staff: log a task once and the attendance recap, quarterly performance report and meeting minutes generate themselves — every figure computed, never invented.</p>
-            <div class="tags"><span class="tag" data-i18n="t.single">Single-file app</span><span class="tag">Offline-first</span><span class="tag" data-i18n="t.docgen">Document generation</span></div>
+            <p data-i18n="w1.p">A work manager for public-sector staff: log a task once and the attendance recap, quarterly KPI report and performance appraisal build themselves — every figure computed, never invented.</p>
+            <div class="tags"><span class="tag" data-i18n="t.single">Single-file app</span><span class="tag" data-i18n="t.noserver">No server</span><span class="tag" data-i18n="t.docgen">Document generation</span></div>
           </div>
         </article></a></li>
-      <li class="rv" style="--d:90ms;--ty:48px"><a href="https://juliusgunawan0707.github.io/nusantara/" target="_blank" rel="noopener">
+      <li class="rv" style="--d:90ms;--ty:48px"><a href="https://nusantara-3d.vercel.app/" target="_blank" rel="noopener">
         <article class="card">
           <div class="meta"><span data-i18n="w2.meta">WebGL &mdash; 2026</span>
             <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <img class="bg" style="--pos:0% 50%" src="assets/work/nusantara.webp" width="960" height="900" loading="lazy" decoding="async" alt="Nusantara opening scene with the NUSA letterforms in the rainforest" data-i18n-attr="alt:w2.alt">
+          <img class="bg" style="--pos:50% 30%" src="assets/work/nusantara3d.webp" width="960" height="900" loading="lazy" decoding="async" alt="Nusantara 3D maquette at golden hour: the palace, the ceremonial axis and a construction site among forest hills" data-i18n-attr="alt:w2.alt">
           <div class="body">
-            <h3>Nusantara</h3>
-            <p data-i18n="w2.p">Four acts along the nationhood axis of Indonesia's new capital, rendered live in the browser — architecture, terrain and light, sourced from official figures.</p>
-            <div class="tags"><span class="tag">three.js</span><span class="tag" data-i18n="t.rt3d">Realtime 3D</span><span class="tag" data-i18n="t.art">Art direction</span></div>
+            <h3>Nusantara 3D</h3>
+            <p data-i18n="w2.p">Indonesia's new capital as an architect's model on a table — five landmarks, a building site that is still moving, and light that runs from morning to night. Every fact card cites a public source.</p>
+            <div class="tags"><span class="tag">three.js</span><span class="tag" data-i18n="t.rt3d">Realtime 3D</span><span class="tag" data-i18n="t.ai3d">AI-to-3D pipeline</span></div>
           </div>
         </article></a></li>
       <li class="rv" style="--d:180ms;--ty:48px"><a href="https://investment-monitor-demo.vercel.app/" target="_blank" rel="noopener">
         <article class="card">
           <div class="meta"><span data-i18n="w3.meta">Dashboard &mdash; 2026</span>
             <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
-          <img class="bg" style="--pos:0% 0%" src="assets/work/investmon.webp" width="960" height="720" loading="lazy" decoding="async" alt="Investment Monitor dashboard with the pre-PKS stage chart and summary cards" data-i18n-attr="alt:w3.alt">
+          <img class="bg" style="--pos:0% 0%" src="assets/work/investmon.webp" width="960" height="900" loading="lazy" decoding="async" alt="Investment Monitor dashboard with the pre-PKS stage chart and summary cards" data-i18n-attr="alt:w3.alt">
           <div class="body">
             <h3>Investment Monitor</h3>
             <p data-i18n="w3.p">Tracks 115 companies through a 34-step onboarding pipeline — agreements, permits, contributions and a land map — in English or Indonesian. All data is synthetic.</p>
             <div class="tags"><span class="tag" data-i18n="t.dash">Dashboard</span><span class="tag" data-i18n="t.dataviz">Data visualisation</span><span class="tag" data-i18n="t.bi">Bilingual</span></div>
           </div>
         </article></a></li>
-      <li class="rv" style="--d:270ms;--ty:48px"><a href="work/gbk-3d/" target="_blank" rel="noopener">
+      <li class="rv" style="--d:270ms;--ty:48px"><a href="https://gbk-3d.vercel.app/" target="_blank" rel="noopener">
         <article class="card">
           <div class="meta"><span data-i18n="w4.meta">Realtime &mdash; 2026</span>
             <span class="live"><span data-i18n="w.live">Live demo</span> <span class="cbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></span></div>
@@ -823,23 +854,71 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
     <p class="eyebrow rv" data-i18n="svc.eyebrow">Services</p>
     <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms" data-i18n="svc.title">What I do best</i></span></h2>
     <ul>
-      <li class="srow rv" style="--d:0ms;--ty:24px"><a href="work/oracle/" target="_blank" rel="noopener">
+      <li class="srow rv" style="--d:0ms;--ty:24px"><a href="https://oracle-architecture.vercel.app/" target="_blank" rel="noopener">
         <div class="r"><span class="idx">01</span><h3 data-i18n="svc.1.t">Multi-Agent Systems</h3>
         <p data-i18n="svc.1.p">Agents that argue, audit each other, and reach a verdict you can trace.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
-      <li class="srow rv" style="--d:80ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/workline/" target="_blank" rel="noopener">
+      <li class="srow rv" style="--d:80ms;--ty:24px"><a href="https://workline-demo.vercel.app/" target="_blank" rel="noopener">
         <div class="r"><span class="idx">02</span><h3 data-i18n="svc.2.t">Workflow Automation</h3>
         <p data-i18n="svc.2.p">Document work that used to take a week, done in one command.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
-      <li class="srow rv" style="--d:160ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/btc-intrinsic-value/" target="_blank" rel="noopener">
+      <li class="srow rv" style="--d:160ms;--ty:24px"><a href="https://satoshi-scale.vercel.app/" target="_blank" rel="noopener">
         <div class="r"><span class="idx">03</span><h3 data-i18n="svc.3.t">Data &amp; Analysis</h3>
         <p data-i18n="svc.3.p">Deterministic numbers from real sources — the model only writes the prose.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
-      <li class="srow rv" style="--d:240ms;--ty:24px"><a href="https://juliusgunawan0707.github.io/cola-wars/" target="_blank" rel="noopener">
+      <li class="srow rv" style="--d:240ms;--ty:24px"><a href="https://cola-wars-1886.vercel.app/" target="_blank" rel="noopener">
         <div class="r"><span class="idx">04</span><h3 data-i18n="svc.4.t">Web Applications</h3>
         <p data-i18n="svc.4.p">Dashboards and tools that people actually open the next morning.</p>
         <span class="sbadge"><svg class="ic"><use href="#i-arrow-ur"/></svg></span></div></a></li>
     </ul>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="shell in">
+    <p class="eyebrow rv" data-i18n="pr.eyebrow">Packages &amp; pricing</p>
+    <h2 class="rv" style="--d:120ms;--ty:0px"><span class="ln"><i style="--d:120ms" data-i18n="pr.title">Fixed scope, fixed price.</i></span></h2>
+    <p class="lede rv" style="--d:180ms;--ty:12px" data-i18n="pr.lede">You know the cost before any work starts. Every package ends with a handover your team can run without me, and the Care Plan is there if you'd rather not.</p>
+    <ul class="plans">
+      <li class="plan rv" style="--d:0ms;--ty:24px">
+        <div class="pk"><span data-i18n="pr.a.t">Automation Audit</span></div>
+        <div class="pr"><span class="amt">$250</span><span class="per" data-i18n="pr.a.per">one-time</span></div>
+        <p class="pd" data-i18n="pr.a.d">A paid first step. We map where your team loses hours, and you keep the map whether we work together or not.</p>
+        <ul><li data-i18n="pr.a.1">One 60–90 minute call about your workflow</li><li data-i18n="pr.a.2">A written map of the 3 automations worth building first, with hours saved per month, within 3 business days</li><li data-i18n="pr.a.3">A fixed quote for the first build</li><li data-i18n="pr.a.4">Fully credited if you go ahead with a Build</li></ul>
+        <span class="pill dark arw" data-modal data-plan role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        </span>
+      </li>
+      <li class="plan feat rv" style="--d:80ms;--ty:24px">
+        <div class="pk"><span data-i18n="pr.b.t">Workflow Build</span><span class="flag" data-i18n="pr.flag">Most common</span></div>
+        <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="amt">$1,200</span></div>
+        <p class="pd" data-i18n="pr.b.d">One workflow automated end to end, like logging work once and getting three reports out of it.</p>
+        <ul><li data-i18n="pr.b.1">Scope and out-of-scope written down before any code</li><li data-i18n="pr.b.2">First working version in 1 week, done in 2, tested on data shaped like yours</li><li data-i18n="pr.b.3">Handover document and a recorded walkthrough</li><li data-i18n="pr.b.4">14 days of fixes after launch</li></ul>
+        <span class="pill light arw" data-modal data-plan role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        </span>
+      </li>
+      <li class="plan rv" style="--d:160ms;--ty:24px">
+        <div class="pk"><span data-i18n="pr.c.t">Agent System or Dashboard</span></div>
+        <div class="pr"><span class="from" data-i18n="pr.from">from</span><span class="amt">$3,500</span></div>
+        <p class="pd" data-i18n="pr.c.d">A multi-agent system or an internal dashboard, with every number computed by code you can audit.</p>
+        <ul><li data-i18n="pr.c.1">AI writes and judges, scripts compute the figures</li><li data-i18n="pr.c.2">A runbook for when something breaks</li><li data-i18n="pr.c.3">Working demo in 2 weeks, done in 3–4, with weekly check-ins</li><li data-i18n="pr.c.4">30 days of fixes after launch</li></ul>
+        <span class="pill dark arw" data-modal data-plan role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        </span>
+      </li>
+      <li class="plan rv" style="--d:240ms;--ty:24px">
+        <div class="pk"><span data-i18n="pr.d.t">Care Plan</span></div>
+        <div class="pr"><span class="amt">$300</span><span class="per" data-i18n="pr.d.per">/ month</span></div>
+        <p class="pd" data-i18n="pr.d.d">Keeps what we built running after handover, for any Build or System.</p>
+        <ul><li data-i18n="pr.d.1">Monitoring and a monthly health check</li><li data-i18n="pr.d.2">Small fixes and changes, up to 4 hours a month</li><li data-i18n="pr.d.3">Reply within one business day</li><li data-i18n="pr.d.4">Cancel any month</li></ul>
+        <span class="pill dark arw" data-modal data-plan role="button" tabindex="0">
+          <span class="pin"><span data-i18n="pr.cta">Choose this</span><span class="badge"><svg class="ic"><use href="#i-arrow"/></svg></span></span>
+        </span>
+      </li>
+    </ul>
+    <p class="pnote rv" style="--ty:10px" data-i18n="pr.note">Prices in USD. Software and API costs (hosting, model usage) are billed at cost and agreed up front. Not sure which fits? Start with the Audit.</p>
   </div>
 </section>
 
@@ -848,12 +927,12 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
   <div class="shell in">
     <div class="statpanel rv" style="--ty:40px;--sc:.99">
       <p class="eyebrow light" data-i18n="num.eyebrow">By the numbers</p>
-      <h2><span class="ln"><i style="--d:120ms" data-i18n="num.title">Proof in the work, not the words.</i></span></h2>
+      <h2><span class="ln"><i style="--d:120ms" data-i18n="num.title">Seven projects. Every number measured.</i></span></h2>
       <ul class="statgrid">
-        <li class="rv" style="--d:0ms;--ty:20px"><div class="n"><span data-count="10000">0</span></div><div class="l" data-i18n="num.1">Simulated price paths behind every strategy check</div></li>
-        <li class="rv" style="--d:90ms;--ty:20px"><div class="n"><span data-count="3549">0</span></div><div class="l" data-i18n="num.2">Days of on-chain history, from free public data</div></li>
-        <li class="rv" style="--d:180ms;--ty:20px"><div class="n"><span data-count="60">0</span></div><div class="l" data-i18n="num.3">Automated tests on the trading engine, all passing</div></li>
-        <li class="rv" style="--d:270ms;--ty:20px"><div class="n"><span data-count="243" data-suffix="&times;">0</span></div><div class="l" data-i18n="num.4">Faster ranking, with provably identical results</div></li>
+        <li class="rv" style="--d:0ms;--ty:20px"><div class="n"><span data-count="44341">0</span></div><div class="l" data-i18n="num.1">Fans animated in one browser tab, GBK 3D</div></li>
+        <li class="rv" style="--d:90ms;--ty:20px"><div class="n"><span data-count="4.8" data-decimals="1" data-suffix=" ms">0</span></div><div class="l" data-i18n="num.2">To render a frame of all of them</div></li>
+        <li class="rv" style="--d:180ms;--ty:20px"><div class="n"><span data-count="115">0</span></div><div class="l" data-i18n="num.3">Companies tracked, every record synthetic, Investment Monitor</div></li>
+        <li class="rv" style="--d:270ms;--ty:20px"><div class="n"><span data-count="7">0</span></div><div class="l" data-i18n="num.4">Live demos, nothing to install</div></li>
       </ul>
     </div>
   </div>
@@ -883,6 +962,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
         <ul>
           <li><a class="alink" href="#about"><span data-i18n="nav.about">About</span></a></li>
           <li><a class="alink" href="#works"><span data-i18n="nav.work">Work</span></a></li>
+          <li><a class="alink" href="#pricing"><span data-i18n="nav.pricing">Pricing</span></a></li>
           <li><a class="alink" href="#numbers"><span data-i18n="nav.numbers">Numbers</span></a></li>
           <li><a class="alink" href="mailto:juliusgunawan1307@gmail.com"><span data-i18n="nav.contact">Contact</span></a></li>
         </ul>
@@ -907,10 +987,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
     </div>
     <div class="flegal">
       <span data-i18n="f.copy">&copy; 2026 Julius Gunawan. All rights reserved.</span>
-      <span class="r">
-        <a class="alink legal" href="#privacy"><span data-i18n="f.privacy">Privacy</span></a>
-        <a class="alink legal" href="#terms"><span data-i18n="f.terms">Terms</span></a>
-      </span>
+      <span class="mid">Remote-first &middot; UTC+8</span>
     </div>
   </div>
   <div class="fmark">JULIUS</div>
@@ -927,9 +1004,10 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
       <li><button class="nitem" data-scroll="home"><span class="n">01</span><span class="l" data-i18n="nav.home">Home</span></button></li>
       <li><button class="nitem" data-scroll="works"><span class="n">02</span><span class="l" data-i18n="nav.work">Work</span></button></li>
       <li><button class="nitem" data-scroll="services"><span class="n">03</span><span class="l" data-i18n="nav.services">Services</span></button></li>
-      <li><button class="nitem" data-scroll="about"><span class="n">04</span><span class="l" data-i18n="nav.about">About</span></button></li>
-      <li><button class="nitem" data-scroll="numbers"><span class="n">05</span><span class="l" data-i18n="nav.numbers">Numbers</span></button></li>
-      <li><button class="nitem" data-modal><span class="n">06</span><span class="l" data-i18n="nav.contact">Contact</span></button></li>
+      <li><button class="nitem" data-scroll="pricing"><span class="n">04</span><span class="l" data-i18n="nav.pricing">Pricing</span></button></li>
+      <li><button class="nitem" data-scroll="about"><span class="n">05</span><span class="l" data-i18n="nav.about">About</span></button></li>
+      <li><button class="nitem" data-scroll="numbers"><span class="n">06</span><span class="l" data-i18n="nav.numbers">Numbers</span></button></li>
+      <li><button class="nitem" data-modal><span class="n">07</span><span class="l" data-i18n="nav.contact">Contact</span></button></li>
     </ul>
   </nav>
   <div class="shell bot">
@@ -1037,14 +1115,15 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
  "w.live": "Demo live",
  "w1.meta": "Otomasi &mdash; 2026",
  "w1.alt": "Dasbor Workline dengan daftar tugas hari ini dan progres SKP",
- "w1.p": "Pengelola kerja untuk staf sektor publik: catat tugas sekali, lalu rekap presensi, laporan kinerja triwulanan, dan notulen rapat tersusun sendiri — setiap angka dihitung, tak pernah dikarang.",
+ "w1.p": "Pengelola kerja untuk staf sektor publik: catat tugas sekali, lalu rekap presensi, laporan KPI triwulanan, dan penilaian kinerja tersusun sendiri — setiap angka dihitung, tak pernah dikarang.",
  "t.single": "Aplikasi satu file",
+ "t.noserver": "Tanpa server",
  "t.docgen": "Pembuatan dokumen",
  "w2.meta": "WebGL &mdash; 2026",
- "w2.alt": "Adegan pembuka Nusantara dengan huruf NUSA di tengah hutan hujan",
- "w2.p": "Empat babak menyusuri sumbu kebangsaan ibu kota baru Indonesia, dirender langsung di browser — arsitektur, medan, dan cahaya, bersumber dari angka resmi.",
+ "w2.alt": "Maket Nusantara 3D saat matahari sore: istana, sumbu kebangsaan, dan lokasi konstruksi di antara bukit hutan",
+ "w2.p": "Ibu kota baru Indonesia sebagai maket arsitek di atas meja — lima landmark, lokasi konstruksi yang terus bergerak, dan cahaya dari pagi hingga malam. Setiap kartu fakta mencantumkan sumber publik.",
  "t.rt3d": "3D realtime",
- "t.art": "Arahan seni",
+ "t.ai3d": "Pipeline AI-ke-3D",
  "w3.meta": "Dasbor &mdash; 2026",
  "w3.alt": "Dasbor Investment Monitor dengan grafik tahapan pra-PKS dan kartu ringkasan",
  "w3.p": "Memantau 115 perusahaan melalui pipeline onboarding 34 langkah — perjanjian, izin, kontribusi, dan peta lahan — dalam bahasa Inggris atau Indonesia. Seluruh data bersifat sintetis.",
@@ -1065,12 +1144,47 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
  "svc.3.p": "Angka deterministik dari sumber nyata — model hanya menulis narasinya.",
  "svc.4.t": "Aplikasi Web",
  "svc.4.p": "Dasbor dan alat yang benar-benar dibuka orang keesokan paginya.",
+ "nav.pricing": "Harga",
+ "pr.eyebrow": "Paket &amp; harga",
+ "pr.title": "Lingkup tetap, harga tetap.",
+ "pr.lede": "Anda tahu biayanya sebelum pekerjaan dimulai. Setiap paket diakhiri serah terima yang bisa dijalankan tim Anda tanpa saya, dan Care Plan tersedia kalau Anda tidak mau repot.",
+ "pr.from": "mulai",
+ "pr.flag": "Paling sering",
+ "pr.cta": "Pilih paket ini",
+ "pr.a.t": "Audit Otomasi",
+ "pr.a.per": "sekali bayar",
+ "pr.a.d": "Langkah pertama berbayar. Kita petakan di mana tim Anda kehilangan jam kerja, dan petanya milik Anda entah kita lanjut bekerja sama atau tidak.",
+ "pr.a.1": "Satu panggilan 60–90 menit tentang alur kerja Anda",
+ "pr.a.2": "Peta tertulis 3 otomasi yang paling layak dibangun dulu, dengan jam yang dihemat per bulan, dalam 3 hari kerja",
+ "pr.a.3": "Penawaran harga tetap untuk build pertama",
+ "pr.a.4": "Dipotong penuh dari biaya Build bila Anda lanjut",
+ "pr.b.t": "Workflow Build",
+ "pr.b.d": "Satu alur kerja diotomasi dari awal sampai akhir, misalnya mencatat pekerjaan sekali lalu tiga laporan jadi sendiri.",
+ "pr.b.1": "Lingkup dan yang di luar lingkup ditulis sebelum kode apa pun",
+ "pr.b.2": "Versi pertama yang berjalan dalam 1 minggu, selesai dalam 2, diuji dengan data yang mirip milik Anda",
+ "pr.b.3": "Dokumen serah terima dan video panduan",
+ "pr.b.4": "14 hari perbaikan setelah rilis",
+ "pr.c.t": "Sistem Agen atau Dasbor",
+ "pr.c.d": "Sistem multi-agen atau dasbor internal, dengan setiap angka dihitung oleh kode yang bisa diaudit.",
+ "pr.c.1": "AI menulis dan menilai, skrip yang menghitung angkanya",
+ "pr.c.2": "Runbook untuk saat ada yang rusak",
+ "pr.c.3": "Demo berjalan dalam 2 minggu, selesai dalam 3–4, dengan pembaruan mingguan",
+ "pr.c.4": "30 hari perbaikan setelah rilis",
+ "pr.d.t": "Care Plan",
+ "pr.d.per": "/ bulan",
+ "pr.d.d": "Menjaga yang sudah dibangun tetap berjalan setelah serah terima, untuk Build maupun Sistem.",
+ "pr.d.1": "Pemantauan dan cek kesehatan bulanan",
+ "pr.d.2": "Perbaikan dan perubahan kecil, hingga 4 jam per bulan",
+ "pr.d.3": "Balasan dalam satu hari kerja",
+ "pr.d.4": "Bisa berhenti kapan saja per bulan",
+ "pr.note": "Harga dalam USD. Biaya perangkat lunak dan API (hosting, pemakaian model) ditagih sesuai biaya aktual dan disepakati di awal. Belum yakin mana yang cocok? Mulai dari Audit.",
+ "m.plan": "Saya tertarik dengan paket",
  "num.eyebrow": "Dalam angka",
- "num.title": "Bukti ada di karya, bukan kata-kata.",
- "num.1": "Lintasan harga simulasi di balik setiap uji strategi",
- "num.2": "Hari riwayat on-chain, dari data publik gratis",
- "num.3": "Tes otomatis pada mesin trading, semuanya lulus",
- "num.4": "Lebih cepat dalam pemeringkatan, hasil terbukti identik",
+ "num.title": "Tujuh proyek. Setiap angka diukur.",
+ "num.1": "Suporter beranimasi dalam satu tab browser, GBK 3D",
+ "num.2": "Untuk merender satu frame seluruhnya",
+ "num.3": "Perusahaan dipantau, seluruh data sintetis, Investment Monitor",
+ "num.4": "Demo live, tanpa instalasi",
  "f.l1": "Punya sesuatu yang",
  "f.l2": "seharusnya jalan sendiri?",
  "f.l3": "Ayo kita bangun.",
@@ -1079,8 +1193,6 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
  "f.about": "Seorang builder yang mengotomasi pekerjaan yang dulu ia kerjakan manual — agen, alur kerja, dan perangkat yang menghubungkannya.",
  "f.site": "Situs",
  "f.else": "Di tempat lain",
- "f.privacy": "Privasi",
- "f.terms": "Ketentuan",
  "f.copy": "&copy; 2026 Julius Gunawan. Hak cipta dilindungi.",
  "m.title": "Ceritakan apa yang sedang Anda bangun.",
  "m.name": "Nama",
@@ -1107,6 +1219,7 @@ footer .in{position:relative;z-index:10;padding:5rem 1.25rem 2.5rem}
  "a.toLight": "Switch to light theme",
  "a.toDark": "Switch to dark theme",
  "m.fill": "Fill every field",
+ "m.plan": "I'm interested in the",
  "m.sending": "Sending…"
 };
   var EN = {};
@@ -1305,7 +1418,7 @@ let setLiquidEnabled = ()=>{};
   const canvas = wrap.querySelector('canvas');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ canvas.remove(); return; }
 
-  const BRUSH = 143, DECAY = 0.010, FADE_FRAMES = 120;
+  const BRUSH = 143, DECAY = 0.010, FADE_FRAMES = 120, IDLE_MS = 6000;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const ctx = canvas.getContext('2d');
   const brush = document.createElement('canvas');
@@ -1316,6 +1429,7 @@ let setLiquidEnabled = ()=>{};
   let img = new Image(); img.decoding = 'async'; img.src = 'assets/hero-reveal.jpg';
   let loaded = false, rect = wrap.getBoundingClientRect();
   const points = []; let last = null, idle = 0, enabled = true, touched = false;
+  let idleTimer = 0, demoRun = 0;
   const hint = document.querySelector('.lq-hint');
   const canHover = window.matchMedia('(hover: hover)').matches;
   if (hint && !canHover){
@@ -1330,6 +1444,30 @@ let setLiquidEnabled = ()=>{};
     points.length = 0; last = null;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
+
+  // After a real move the hint goes; IDLE_MS of stillness with the hero still on screen brings it back
+  // with one scripted sweep. A move restarts the countdown, so it never shows while someone is drawing.
+  // "On screen" is measured when the timer fires: at least 35% of the hero visible. Scrolled away,
+  // it keeps waiting, so idling back at the top later still brings the hint.
+  function heroOnScreen(){
+    const r = wrap.getBoundingClientRect();
+    const seen = Math.min(r.bottom, innerHeight) - Math.max(r.top, 0);
+    return r.height > 0 && seen / Math.min(r.height, innerHeight) >= 0.35;
+  }
+  function armIdle(){
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(()=>{
+      if (!enabled || !touched) return;
+      if (!heroOnScreen()){ armIdle(); return; }
+      touched = false;
+      if (hint) hint.classList.remove('gone');
+      demo();
+    }, IDLE_MS);
+  }
+  function wake(){
+    if (!touched){ touched = true; if (hint) hint.classList.add('gone'); }
+    armIdle();
+  }
 
   function buildCover(){
     cover.width = canvas.width; cover.height = canvas.height;
@@ -1370,7 +1508,7 @@ let setLiquidEnabled = ()=>{};
     const r = wrap.getBoundingClientRect();
     const x = (e.clientX - r.left) * dpr, y = (e.clientY - r.top) * dpr;
     if (x < -radius || y < -radius || x > canvas.width + radius || y > canvas.height + radius){ last = null; return; }
-    if (!touched){ touched = true; if (hint) hint.classList.add('gone'); }
+    wake();
     if (last){
       const dx = x - last.x, dy = y - last.y;
       const dist = Math.hypot(dx, dy);
@@ -1415,10 +1553,10 @@ let setLiquidEnabled = ()=>{};
   function demo(){
     if (!enabled || touched || !loaded) return;
     const route = [[.30,.34],[.60,.37],[.36,.47],[.58,.52]].map(p=> facePoint(p[0], p[1]));
-    const legs = route.length - 1, DUR = 2800, t0 = performance.now();
+    const legs = route.length - 1, DUR = 2800, t0 = performance.now(), run = ++demoRun;
     let prev = null;
     (function step(now){
-      if (!enabled || touched) return;
+      if (!enabled || touched || run !== demoRun) return;
       const t = Math.min((now - t0) / DUR, 1);
       const e = t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;       // ease in-out
       const f = e * legs, i = Math.min(Math.floor(f), legs - 1), k = f - i;
@@ -1502,12 +1640,7 @@ let setLiquidEnabled = ()=>{};
 
 /* ---------------- clock ---------------- */
 (function clock(){
-  const MONTHS = {
-    en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-    id: ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']
-  };
   const times = document.querySelectorAll('[data-clock-time]');
-  const dates = document.querySelectorAll('[data-clock-date]');
   function tick(){
     const d = new Date();
     const id = I18N.lang() === 'id';
@@ -1515,11 +1648,7 @@ let setLiquidEnabled = ()=>{};
     const time = id
       ? String(d.getHours()).padStart(2, '0') + '.' + m                       // 21.41
       : (d.getHours() % 12 || 12) + ':' + m + (d.getHours() >= 12 ? 'pm' : 'am');
-    const month = MONTHS[id ? 'id' : 'en'][d.getMonth()];
-    const date = id ? d.getDate() + ' ' + month + ' ' + d.getFullYear()      // 14 Oktober 2026
-                    : d.getDate() + ' ' + month + ', ' + d.getFullYear();
     times.forEach(n=> n.textContent = time);
-    dates.forEach(n=> n.textContent = date);
   }
   tick(); setInterval(tick, 1000);
   document.addEventListener('langchange', tick);
@@ -1584,7 +1713,9 @@ document.querySelectorAll('.alink').forEach(a=>{
 
 /* ---------------- stats count-up ---------------- */
 (function stats(){
-  const nodes = [...document.querySelectorAll('[data-count]')].map(n=>({ n, v: +n.dataset.count, suf: n.dataset.suffix ? '×' : '' }));
+  const nodes = [...document.querySelectorAll('[data-count]')].map(n=>({
+    n, v: +n.dataset.count, dec: +(n.dataset.decimals || 0), suf: n.dataset.suffix || ''
+  }));
   if (!nodes.length) return;
   let t = 0;
   function update(){
@@ -1592,11 +1723,13 @@ document.querySelectorAll('.alink').forEach(a=>{
     if (now - t < 30) return;
     t = now;
     const vh = window.innerHeight;
-    nodes.forEach(({ n, v, suf })=>{
+    const loc = I18N.lang() === 'id' ? 'id-ID' : 'en-US';
+    nodes.forEach(({ n, v, dec, suf })=>{
       const r = n.getBoundingClientRect();
       const start = vh, end = vh/2 - r.height/2;
       const p = Math.min(Math.max((start - r.top) / (start - end), 0), 1);
-      n.textContent = Math.round(p * v).toLocaleString(I18N.lang() === 'id' ? 'id-ID' : 'en-US') + suf;
+      const k = Math.pow(10, dec);
+      n.textContent = (Math.round(p * v * k) / k).toLocaleString(loc, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
     });
   }
   update();
@@ -1737,6 +1870,11 @@ modal.querySelector('form').addEventListener('submit', async e=>{
 /* ---------------- global click routing ---------------- */
 function activate(el){
   if (el.hasAttribute('data-modal')){
+    const msg = document.getElementById('f-msg');
+    if (el.hasAttribute('data-plan') && msg && !msg.value.trim()){
+      const name = el.closest('.plan').querySelector('.pk [data-i18n]').textContent;
+      msg.value = I18N.t('m.plan') + ' ' + name + (I18N.lang() === 'id' ? '. ' : ' package. ');
+    }
     if (!navmenu.hidden) closeMenu();
     setTimeout(openModal, navmenu.hidden ? 0 : 300);
     return;

@@ -1,6 +1,6 @@
 // Capture the Selected Work card images from the live demos.
 //
-//   node tools/capture.mjs              # all four
+//   node tools/capture.mjs              # all of them
 //   node tools/capture.mjs colawars     # just one
 //
 // Why not `chrome --screenshot --virtual-time-budget`: that fires on a timer,
@@ -34,24 +34,43 @@ const SCALE = 0.75;
 
 const DEMOS = {
   workline: {
-    url: 'https://juliusgunawan0707.github.io/workline/',
+    url: 'https://workline-demo.vercel.app/',
     minWait: 2500,
   },
   nusantara: {
-    url: 'https://juliusgunawan0707.github.io/nusantara/',
+    url: 'https://nusantara-alpha.vercel.app/',
     minWait: 6000,
     ready: `!!document.querySelector('canvas')`,
     maxDiff: 9, // the rainforest keeps moving; only wait out the intro fade
   },
   colawars: {
-    url: 'https://juliusgunawan0707.github.io/cola-wars/',
+    url: 'https://cola-wars-1886.vercel.app/',
     minWait: 3000,
     ready: `(() => { const m = document.querySelector('model-viewer'); return !!(m && m.loaded); })()`,
     settle: 2000, // textures land after the model's load event
     maxDiff: 9, // the can idles in motion
   },
+  nusantara3d: {
+    url: 'https://nusantara-3d.vercel.app/',
+    minWait: 8000,
+    ready: `!!document.querySelector('canvas')`,
+    maxDiff: 9, // the light loops from morning to night
+  },
+  investmon: {
+    url: 'https://investment-monitor-demo.vercel.app/',
+    minWait: 3000,
+    settle: 1500, // charts animate in after load
+    // the landing screen is a sparse title card; the card should show the dashboard itself
+    // drop it and the 100vh gap it leaves above the dashboard
+    prep: `(() => {
+      const h = document.getElementById('hero'); if (h) h.style.display = 'none';
+      const a = document.querySelector('.app-container');
+      if (a) { a.style.marginTop = '0'; a.style.paddingTop = '1.5rem'; }
+    })()`,
+    minLit: 0.03, // dark navy dashboard: most pixels sit under the "lit" luma floor
+  },
   gbk: {
-    url: 'https://juliusgunawan0707.github.io/portfolio-julius/work/gbk-3d/',
+    url: 'https://gbk-3d.vercel.app/',
     minWait: 8000,
     ready: `!!document.querySelector('canvas')`,
     maxDiff: 9, // the match keeps playing
@@ -171,7 +190,7 @@ async function capture(cdp, name, demo) {
     const cur = await sample(cdp);
     lit = litShare(cur);
     const d = meanDiff(prev, cur);
-    stable = lit > 0.08 && d < (demo.maxDiff || 2.5) ? stable + 1 : 0;
+    stable = lit > (demo.minLit ?? 0.08) && d < (demo.maxDiff || 2.5) ? stable + 1 : 0;
     prev = cur;
     if (Date.now() - t0 > 90000) throw new Error(`${name}: screen never settled (lit ${lit.toFixed(2)}, diff ${d.toFixed(2)})`);
   }
