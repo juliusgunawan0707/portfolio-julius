@@ -1498,6 +1498,10 @@ document.querySelectorAll('[data-words]').forEach(splitWords);
 // the language switch rewrites the sentence, so the word spans are rebuilt
 document.addEventListener('langchange', ()=> document.querySelectorAll('[data-words]').forEach(splitWords));
 
+// ?capture = recording mode: every section is shown in its finished state, so a full-page
+// snapshot (e.g. the Swarm Rebuild extension) never copies half-revealed words or zeroed stats
+const CAPTURE = new URLSearchParams(location.search).has('capture');
+
 let ready = false;
 const gated = [];
 function onReveal(entries, obs){
@@ -1543,6 +1547,10 @@ document.querySelectorAll('.rv').forEach(el=> (el.hasAttribute('data-gate') ? io
       el.remove();
       gated.forEach((n, i)=> setTimeout(()=> n.classList.add('shown'), i * 0));
       gated.length = 0;
+      if (CAPTURE){
+        io.disconnect(); ioHero.disconnect();
+        document.querySelectorAll('.rv').forEach(n=> n.classList.add('shown'));
+      }
     }, 760);
   })(t0);
 })();
@@ -1863,7 +1871,7 @@ document.querySelectorAll('.alink').forEach(a=>{
     nodes.forEach(({ n, v, dec, suf })=>{
       const r = n.getBoundingClientRect();
       const start = vh, end = vh/2 - r.height/2;
-      const p = Math.min(Math.max((start - r.top) / (start - end), 0), 1);
+      const p = CAPTURE ? 1 : Math.min(Math.max((start - r.top) / (start - end), 0), 1);
       const k = Math.pow(10, dec);
       n.textContent = (Math.round(p * v * k) / k).toLocaleString(loc, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
     });
