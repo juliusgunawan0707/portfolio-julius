@@ -175,6 +175,7 @@ body,#home,.vignette,.brand,#header nav button,.clock,.clock .lbl,.clock .t,.men
 .wd{display:inline-block;transform:translateY(24px);opacity:0;
     transition:transform .7s var(--e-word) var(--d,0ms),opacity .7s var(--e-word) var(--d,0ms)}
 .rv.shown .wd{transform:none;opacity:1}
+html.capture #liquid canvas,html.capture .lq-hint{display:none!important}
 
 /* ---------- shared components ---------- */
 .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.875rem;font-weight:500;color:rgba(17,17,17,.7)}
@@ -1494,13 +1495,18 @@ function splitWords(el){
     });
   })(el);
 }
-document.querySelectorAll('[data-words]').forEach(splitWords);
-// the language switch rewrites the sentence, so the word spans are rebuilt
-document.addEventListener('langchange', ()=> document.querySelectorAll('[data-words]').forEach(splitWords));
-
 // ?capture = recording mode: every section is shown in its finished state, so a full-page
-// snapshot (e.g. the Swarm Rebuild extension) never copies half-revealed words or zeroed stats
+// snapshot (e.g. the Swarm Rebuild extension) never copies half-revealed words or zeroed stats.
+// The sentence also stays unsplit (the swarm lays a wrapped span out from the left edge), and
+// the liquid canvas is hidden (its snapshot is an empty pane that covers the portrait).
 const CAPTURE = new URLSearchParams(location.search).has('capture');
+if (CAPTURE) document.documentElement.classList.add('capture');
+
+if (!CAPTURE){
+  document.querySelectorAll('[data-words]').forEach(splitWords);
+  // the language switch rewrites the sentence, so the word spans are rebuilt
+  document.addEventListener('langchange', ()=> document.querySelectorAll('[data-words]').forEach(splitWords));
+}
 
 let ready = false;
 const gated = [];
