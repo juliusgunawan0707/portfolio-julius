@@ -1,6 +1,6 @@
 # portfolio-julius
 
-Personal site — **Julius Gunawan, AI Automation Engineer**. Static, no build step.
+Personal site — **Julius Gunawan, AI Automation Builder**. Static, no build step.
 
 ```
 index.html                  # everything: markup, CSS, JS (ES module)
